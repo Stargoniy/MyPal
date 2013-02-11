@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
@@ -28,11 +29,11 @@ public class TransactionController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@RequestParam("debit") String debit, @RequestParam("credit") String credit, @RequestParam("sum") double sum) throws IOException {
+    public String create(HttpServletRequest request) throws IOException {
         Transaction transaction = new Transaction();
-        transaction.setDebit(debit);
-        transaction.setCredit(credit);
-        transaction.setSum(sum);
+        transaction.setDebit(UserDao.getByEmail(request.getParameter("debit")));
+        transaction.setCredit(UserDao.getById(Integer.parseInt(request.getParameter("credit"))));
+        transaction.setSum(Double.parseDouble(request.getParameter("sum")));
         TransactionDAO.create(transaction);
 
         return "transaction/list";
