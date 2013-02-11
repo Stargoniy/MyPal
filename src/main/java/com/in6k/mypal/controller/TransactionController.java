@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 @Controller
@@ -25,12 +26,12 @@ public class TransactionController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@RequestParam("debit") String debit, @RequestParam("credit") String credit, @RequestParam("credit") double sum) {
+    public String create(@RequestParam("debit") String debit, @RequestParam("credit") String credit, @RequestParam("sum") double sum) throws IOException {
         Transaction transaction = new Transaction();
         transaction.setDebit(debit);
         transaction.setCredit(credit);
         transaction.setSum(sum);
-//        TransactionDAO.
+//        TransactionDAO.create(transaction);
         return "transaction/create";
     }
 
