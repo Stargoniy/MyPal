@@ -14,20 +14,7 @@ public class TransactionController {
 
     @RequestMapping(value = "/create", method = RequestMethod.GET )
     public String creationForm(@RequestParam("debit") String debit, @RequestParam("credit") String credit) {
-        /*Integer debitId = new Integer(debit);
-        Integer creditId = new Integer(credit);
 
-        User user = null;
-
-            user = UserDAO.getById(debitId);
-
-
-        Account acc = new Account();
-        acc.setName(request.getParameter("name"));
-        acc.setUser(user);
-        acc.setTypeId(25);
-
-        AccountDAOimpl.save(acc);*/
 
 
         return "create";
@@ -35,20 +22,7 @@ public class TransactionController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST )
     public String create(@RequestParam("debit") String debit, @RequestParam("credit") String credit) {
-        /*Integer debitId = new Integer(debit);
-        Integer creditId = new Integer(credit);
 
-        User user = null;
-
-            user = UserDAO.getById(debitId);
-
-
-        Account acc = new Account();
-        acc.setName(request.getParameter("name"));
-        acc.setUser(user);
-        acc.setTypeId(25);
-
-        AccountDAOimpl.save(acc);*/
 
 
         return "create";
