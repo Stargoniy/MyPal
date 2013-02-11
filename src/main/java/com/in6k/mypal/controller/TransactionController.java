@@ -3,6 +3,8 @@ package com.in6k.mypal.controller;
 import com.in6k.mypal.dao.TransactionDAO;
 import com.in6k.mypal.domain.Transaction;
 import com.in6k.mypal.domain.User;
+import com.in6k.mypal.service.IncreaseBalanсe;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,5 +48,27 @@ public class TransactionController {
         TransactionDAO.delete(id);
         return "transaction/list";
     }
+
+    @RequestMapping(value = "/create/debetfromcard", method = RequestMethod.POST)
+    public String createTransactionDebetFromCard(@RequestParam("card_number") String cardNumber, @RequestParam("expiry_date") String expiryDate,
+                                                 @RequestParam("name_on_card") String nameOnCard, @RequestParam("sum") double sum,
+                                                 @RequestParam("cvv") String cvv) throws IOException {
+
+        IncreaseBalanсe ib = new IncreaseBalanсe();
+        boolean validateCardInfo= ib.validateCardInfo(cardNumber, expiryDate, nameOnCard, sum, cvv);
+
+        if (!validateCardInfo){
+            return "creditcard/create";
+        }
+
+        ib.moneyFromCreditCard();
+
+    }
+
+    @RequestMapping(value = "/create/debetfromcard", method = RequestMethod.GET)
+    public String creationFormDebetFromCard(ModelMap model){
+        return "creditcard/create";
+    }
+
 
 }

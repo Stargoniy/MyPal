@@ -19,6 +19,17 @@ public class Transaction {
     @Column(name = "sum")
     private double sum;
 
+    @Column(name = "desription")
+    private String desription;
+
+    public String getDesription() {
+        return desription;
+    }
+
+    public void setDesription(String desription) {
+        this.desription = desription;
+    }
+
     public int getId() {
         return id;
     }

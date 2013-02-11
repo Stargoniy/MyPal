@@ -1,9 +1,15 @@
 package com.in6k.mypal.service;
 
+import com.in6k.mypal.dao.TransactionDAO;
+import com.in6k.mypal.domain.Transaction;
+import com.in6k.mypal.util.HibernateUtil;
+import org.hibernate.Session;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-class IncreaseBalanсe {
+public class IncreaseBalanсe {
     private String cardNumber;
     private String expiryDate;
     private String cvv;
@@ -22,29 +28,26 @@ class IncreaseBalanсe {
 
     }
 
-    public void setSum(double sum) {
-        this.sum = sum;
-    }
-
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
-    }
-
-    public void setExpiryDate(String expiryDate) {
-        this.expiryDate = expiryDate;
-    }
-
-    public void setCvv(String cvv) {
-        this.cvv = cvv;
-    }
-
-    public void setNameOnCard(String nameOnCard) {
-        this.nameOnCard = nameOnCard;
-    }
-
     public boolean moneyFromCreditCard(){
+
+        Transaction transaction = new Transaction();
+        transaction.setDebit(debit);
+        transaction.setCredit(credit);
+        transaction.setSum(sum);
+
+        TransactionDAO.create(transaction);
         return true;
 
+    }
+
+    private boolean validateCardInfo(String card, String expiry, String name, double sumOnCard, String cvvOnCard){
+        this.cardNumber=card;
+        this.expiryDate=expiry;
+        this.nameOnCard=name;
+        this.sum=sumOnCard;
+        this.cvv=cvvOnCard;
+
+        return true;
     }
 
 
