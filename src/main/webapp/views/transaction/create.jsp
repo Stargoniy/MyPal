@@ -3,20 +3,16 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <link type="text/css" rel="stylesheet" href="./../../bootstrap/css/bootstrap.css" />
+    <link type="text/css" rel="stylesheet" href="../../bootstrap/css/bootstrap.css" />
 </head>
 <body>
 <div>
-    <form method="post" action="/transactions" class="form-inline">
+    <form method="post" action="/transaction/create" class="form-inline">
         <fieldset>
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="/transactions" data-toggle="tab">Transactions</a></li>
-            </ul>
-            <label>ivanov@gmail.com</label>
+            <p><label>ivanov@gmail.com</label></p>
 
-            <label>Debet email:</label>
-            <input name="email" type="text" class="input-medium" placeholder="Email">
-            <input name="sum" type="text" class="input-medium" placeholder="Sum">
+            <p><label>Debit email:</label><input name="email" type="text" class="input-medium" placeholder="Email"></p>
+            <p><label>Sum:</label><input name="sum" type="text" class="input-medium" placeholder="Sum"></p>
             <button type="submit" class="btn btn-primary">Create</button>
         </fieldset>
     </form>
