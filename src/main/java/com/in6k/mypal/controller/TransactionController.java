@@ -13,11 +13,11 @@ import java.sql.SQLException;
 public class TransactionController {
 
     @RequestMapping(value = "/create", method = RequestMethod.GET )
-    public String creationForm(@RequestParam("debit") String debit, @RequestParam("credit") String credit) {
+    public String creationForm() {
 
 
 
-        return "create";
+        return "transaction/create";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST )
