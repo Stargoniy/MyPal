@@ -1,6 +1,10 @@
 package com.in6k.mypal.domain;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
 
 @Entity
 @Table(name = "users")
