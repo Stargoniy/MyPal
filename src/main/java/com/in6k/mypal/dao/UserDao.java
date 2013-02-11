@@ -2,10 +2,13 @@ package com.in6k.mypal.dao;
 
 import com.in6k.mypal.domain.User;
 import com.in6k.mypal.util.HibernateUtil;
+import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Expression;
 
 import javax.swing.*;
 import java.sql.SQLException;
+import java.util.List;
 
 public class UserDao {
 
@@ -20,7 +23,7 @@ public class UserDao {
         }
     }
 
-    public static User getById(Integer id) throws SQLException {
+    public static User getById(Integer id) {
         Session session = null;
         User user = null;
 
@@ -36,9 +39,19 @@ public class UserDao {
                 session.close();
             }
         }
-
         return user;
     }
 
+    public static User getByEmail(String email) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        List userList = session.createCriteria(User.class).add(Expression.like("email", email)).list();
+        User result = null;
+        if (userList != null && userList.size() > 0) {
+            result = (User) userList.get(0);
+        }
+        session.getTransaction().commit();
 
+        return result;
+    }
 }

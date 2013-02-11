@@ -13,7 +13,7 @@
 
             <p><label>Debit email:</label><input name="debit" type="text" class="input-medium" placeholder="Email"></p>
             <p><label>Sum:</label><input name="sum" type="text" class="input-medium" placeholder="Sum"></p>
-            <input type="hidden" name="credit" value="${user.email}" />
+            <input type="hidden" name="credit" value="${user.id}" />
             <button type="submit" class="btn btn-primary">Create</button>
         </fieldset>
     </form>

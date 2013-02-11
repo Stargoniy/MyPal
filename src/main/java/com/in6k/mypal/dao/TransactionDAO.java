@@ -19,9 +19,9 @@ public class TransactionDAO {
         session.beginTransaction();
 
         Query query = session.createSQLQuery("SELECT * FROM transactions WHERE debit=? OR credit=?;");
-        String userEmail = user.getEmail();
-        query.setString(0, userEmail);
-        query.setString(1, userEmail);
+        int userId = user.getId();
+        query.setInteger(0, userId);
+        query.setInteger(1, userId);
         List<Transaction> result = query.list();
 
         session.getTransaction().commit();
