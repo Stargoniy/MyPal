@@ -2,21 +2,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE HTML>
 <html>
-<head>
-    <link type="text/css" rel="stylesheet" href="../../bootstrap/css/bootstrap.css" />
-</head>
-<body>
-<div>
-    <form method="post" action="/transaction/create" class="form-inline">
-        <fieldset>
-            <p><label>${user.email}</label></p>
+    <head>
+        <link type="text/css" rel="stylesheet" href="../../bootstrap.css" />
+    </head>
+    <body>
+        <form method="post" action="/transaction/create">
+            <p>${user.email}</p>
 
-            <p><label>Debit email:</label><input name="debit" type="text" class="input-medium" placeholder="Email"></p>
-            <p><label>Sum:</label><input name="sum" type="text" class="input-medium" placeholder="Sum"></p>
-            <input type="hidden" name="credit" value="${user.id}" />
+            Debit email:<br>
+            <input name="debit" type="text" class="input-medium" placeholder="Email"><br>
+            Sum: <br>
+            <input name="sum" type="text" class="input-medium" placeholder="Sum"><br>
             <button type="submit" class="btn btn-primary">Create</button>
-        </fieldset>
-    </form>
-</div>
-</body>
+            <input type="hidden" name="credit" value="${user.id}" />
+        </form>
+    </body>
 </html>
