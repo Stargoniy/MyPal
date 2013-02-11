@@ -1,6 +1,7 @@
 package com.in6k.mypal.controller;
 
 import com.in6k.mypal.dao.TransactionDAO;
+import com.in6k.mypal.dao.UserDao;
 import com.in6k.mypal.domain.Transaction;
 import com.in6k.mypal.domain.User;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collection;
 
 @Controller
 @RequestMapping(value = "/transaction")
@@ -31,12 +33,22 @@ public class TransactionController {
         transaction.setDebit(debit);
         transaction.setCredit(credit);
         transaction.setSum(sum);
-//        TransactionDAO.create(transaction);
-        return "transaction/create";
+        TransactionDAO.create(transaction);
+
+        return "transaction/list";
     }
 
     @RequestMapping(value = "/list")
-    public String list() {
+    public String list(ModelMap model) throws IOException, SQLException {
+
+        Collection<Transaction> transactions = null;
+
+        transactions = TransactionDAO.findAllForUser(UserDao.getById(2));
+
+        model.addAttribute("transactions", transactions);
+
+        //request.getRequestDispatcher("/Transaction.jsp").include(request, response);
+
         return "transaction/list";
     }
 

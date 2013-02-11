@@ -17,6 +17,7 @@ public class TransactionDAO {
     public static List<Transaction> findAllForUser(User user) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
+
         Query query = session.createSQLQuery("SELECT * FROM transactions WHERE debit=? OR credit=?;");
         String userEmail = user.getEmail();
         query.setString(0, userEmail);
