@@ -1,6 +1,6 @@
 package com.in6k.mypal;
 
-import com.in6k.mypal.dao.TransactionDAO;
+import com.in6k.mypal.dao.TransactionDao;
 import com.in6k.mypal.dao.UserDao;
 import com.in6k.mypal.domain.Transaction;
 import com.in6k.mypal.domain.User;
@@ -29,6 +29,6 @@ public class Main {
         tr.setCredit(user1);
         tr.setDebit(user2);
 
-        TransactionDAO.create(tr);
+        TransactionDao.create(tr);
     }
 }
