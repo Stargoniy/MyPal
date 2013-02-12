@@ -18,7 +18,7 @@ public class TransactionDao {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
-        Query query = session.createSQLQuery("SELECT * FROM transactions WHERE debit_id=? OR credit_id=?;");
+        Query query = session.createSQLQuery("SELECT * FROM transactions WHERE debit_id = ? OR credit_id = ?;");
         int userId = user.getId();
         query.setInteger(0, userId);
         query.setInteger(1, userId);

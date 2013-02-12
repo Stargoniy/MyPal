@@ -1,4 +1,4 @@
-package com.in6k.mypal.services;
+package com.in6k.mypal.service;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

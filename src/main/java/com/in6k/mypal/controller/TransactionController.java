@@ -4,7 +4,7 @@ import com.in6k.mypal.dao.TransactionDao;
 import com.in6k.mypal.dao.UserDao;
 import com.in6k.mypal.domain.Transaction;
 import com.in6k.mypal.domain.User;
-import com.in6k.mypal.services.TransactionValidator;
+import com.in6k.mypal.service.TransactionValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +31,6 @@ public class TransactionController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(HttpServletRequest request) throws IOException {
-
         TransactionValidator transactionValidator = new TransactionValidator();
 
         transactionValidator.setCredit(UserDao.getById(Integer.parseInt(request.getParameter("credit"))));
@@ -39,24 +38,28 @@ public class TransactionController {
         transactionValidator.setInputSum(request.getParameter("sum"));
 
 
-        /*if (transactionValidator.validate().size() == 0) {*/
+        if (transactionValidator.validate().size() == 0) {
             Transaction transaction = new Transaction();
             transaction.setDebit(transactionValidator.getDebit());
             transaction.setCredit(transactionValidator.getCredit());
-            transaction.setSum(Double.parseDouble(transactionValidator.getInputSum()));
+            transaction.setSum(transactionValidator.getSum());
 
             TransactionDao.create(transaction);
 
-            //return "transaction/create";
-        /*}*/
+            return "transaction/create";
+        }
         return "transaction/create";
     }
 
     @RequestMapping(value = "/list")
     public String list(ModelMap model) throws IOException, SQLException {
+<<<<<<< HEAD
         Collection<Transaction> transactions = TransactionDao.findAllForUser(UserDao.getById(1));
+=======
+        //Collection<Transaction> transactions = TransactionDao.findAllForUser(UserDao.getById(1));
+>>>>>>> 73754cb289f6e536869e470b364cc59ffe14d6cd
 
-        model.addAttribute("transactions", transactions);
+        model.addAttribute("transactions", TransactionDao.list());
 
         return "transaction/list";
     }

@@ -1,4 +1,4 @@
-package com.in6k.mypal.services;
+package com.in6k.mypal.service;
 
 import com.in6k.mypal.dao.UserDao;
 import com.in6k.mypal.domain.User;

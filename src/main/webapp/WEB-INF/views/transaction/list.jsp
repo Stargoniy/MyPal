@@ -15,10 +15,10 @@
             </tr>
             <c:forEach var="transaction" items="${transactions}">
                 <tr>
-                    <td><c:out value="${transaction[0]}"/></td>
-                    <td><c:out value="${transaction[1]}"/> (<c:out value="${transaction[2]}"/>)
+                    <td>${transaction[i]}</td>
+                    <td><c:out value="${transaction.debit}"/> <%--(<c:out value="${transaction[2]}"/>)--%>
                     </td>
-                    <td><c:out value="${transaction[3]}"/> <%--(<c:out value="${transaction[4]}"/>)--%>
+                    <td><c:out value="${transaction.sum}"/> <%--(<c:out value="${transaction[4]}"/>)--%>
                     </td>
                     <%--<td><c:out value="${transaction[5]}"/></td>--%>
                 </tr>
