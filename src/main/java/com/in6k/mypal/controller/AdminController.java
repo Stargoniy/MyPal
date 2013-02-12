@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class AdminController {
 
-    @RequestMapping("/user/list")
+    @RequestMapping("/users")
     public String showRegistredUsers(ModelMap model) {
 
         model.addAttribute("userlist", UserDao.list());
