@@ -22,7 +22,7 @@ public class TransactionController {
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String creationForm(ModelMap model) {
-        User user = UserDao.getById(1);
+        User user = UserDao.getById(2);
 
         model.addAttribute(user);
         return "transaction/create";
@@ -57,7 +57,7 @@ public class TransactionController {
 
     @RequestMapping(value = "/list")
     public String list(ModelMap model) throws IOException, SQLException {
-        Collection<Transaction> transactions = TransactionDAO.list();;
+        Collection<Transaction> transactions = TransactionDAO.findAllForUser(UserDao.getById(2));
 
         model.addAttribute("transactions", transactions);
 
