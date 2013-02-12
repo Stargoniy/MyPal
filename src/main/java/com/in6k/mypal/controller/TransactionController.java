@@ -38,16 +38,16 @@ public class TransactionController {
         transactionValidator.setInputSum(request.getParameter("sum"));
 
 
-        /*if (transactionValidator.validate().size() == 0) {*/
+        if (transactionValidator.validate().size() == 0) {
             Transaction transaction = new Transaction();
             transaction.setDebit(transactionValidator.getDebit());
             transaction.setCredit(transactionValidator.getCredit());
-            transaction.setSum(Double.parseDouble(transactionValidator.getInputSum()));
+            transaction.setSum(transactionValidator.getSum());
 
             TransactionDAO.create(transaction);
 
-            //return "transaction/create";
-        /*}*/
+            return "transaction/create";
+        }
         return "transaction/create";
     }
 
@@ -55,7 +55,7 @@ public class TransactionController {
     public String list(ModelMap model) throws IOException, SQLException {
         //Collection<Transaction> transactions = TransactionDAO.findAllForUser(UserDao.getById(1));
 
-        model.addAttribute("transactions", TransactionDAO.findAllForUser(UserDao.getById(1)));
+        model.addAttribute("transactions", TransactionDAO.list());
 
         return "transaction/list";
     }
