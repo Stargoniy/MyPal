@@ -22,8 +22,7 @@ public class TransactionController {
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String creationForm(ModelMap model) {
-        User user = new User();
-        user.setEmail("petrov@gmail.com");
+        User user = UserDao.getById(1);
 
         model.addAttribute(user);
         return "transaction/create";
