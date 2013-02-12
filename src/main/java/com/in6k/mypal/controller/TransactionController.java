@@ -59,7 +59,8 @@ public class TransactionController {
         //Collection<Transaction> transactions = TransactionDao.findAllForUser(UserDao.getById(1));
 >>>>>>> 73754cb289f6e536869e470b364cc59ffe14d6cd
 
-        model.addAttribute("transactions", TransactionDao.list());
+//        model.addAttribute("transactions", TransactionDao.list());
+        model.addAttribute("transactions", TransactionDao.findAllForUser(UserDao.getById(17)));
 
         return "transaction/list";
     }
