@@ -53,10 +53,9 @@ public class TransactionController {
 
     @RequestMapping(value = "/list")
     public String list(ModelMap model) throws IOException, SQLException {
-        //Collection<Transaction> transactions = TransactionDao.findAllForUser(UserDao.getById(1));
-
-//        model.addAttribute("transactions", TransactionDao.list());
-        model.addAttribute("transactions", TransactionDao.findAllForUser(UserDao.getById(17)));
+//        Collection<Transaction> transactions = TransactionDao.findAllForUser(UserDao.getById(1));
+        model.addAttribute("transactions", TransactionDao.list());
+//        model.addAttribute("transactions", TransactionDao.findAllForUser(UserDao.getById(17)));
 
         return "transaction/list";
     }
