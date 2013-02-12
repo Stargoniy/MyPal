@@ -54,4 +54,8 @@ public class UserDao {
 
         return result;
     }
+
+    public static double getBalance(User user) {
+        return 0;
+    }
 }
