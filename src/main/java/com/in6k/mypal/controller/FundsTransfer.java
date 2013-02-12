@@ -6,5 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(value = "/funds")
 public class FundsTransfer {
-    public void add
+    @RequestMapping(value = "/transfer")
+    public void addTransfer() {
+
+    }
 }
