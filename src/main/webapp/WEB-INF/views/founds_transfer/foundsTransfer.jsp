@@ -9,8 +9,8 @@
         <div class="container">
             <h4>New transfer.</h4>
             <form method="post" action="/founds/transfer/add">
-                <input type="email" placeholder="example@mail.com">
-                <input type="text" placeholder="transfer value"></br>
+                <input type="email" placeholder="example@mail.com" name="email">
+                <input type="text" placeholder="transfer value" name="transfer_value"></br>
                 <input class="btn" type="submit" value="Submit"/>
                 <input class="btn" type="reset" value="Reset"/>
             </form>
