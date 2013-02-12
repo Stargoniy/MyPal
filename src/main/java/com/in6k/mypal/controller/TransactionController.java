@@ -4,7 +4,7 @@ import com.in6k.mypal.dao.TransactionDAO;
 import com.in6k.mypal.dao.UserDao;
 import com.in6k.mypal.domain.Transaction;
 import com.in6k.mypal.domain.User;
-import com.in6k.mypal.services.TransactionValidator;
+import com.in6k.mypal.service.TransactionValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;

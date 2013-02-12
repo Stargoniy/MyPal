@@ -59,7 +59,7 @@ public class UserDao {
     }
 
     public static double getBalance(User user) {
-        return 0;
+        return 1000000; //TODO Fix Me!
     }
 
     public static ArrayList<User> list() {
