@@ -14,6 +14,7 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+    private boolean active;
 
     @Id
     @GeneratedValue
@@ -59,5 +60,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Column(name = "active")
+    public boolean getActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

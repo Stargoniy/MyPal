@@ -34,7 +34,7 @@ public class TransactionController {
 
         transactionValidator.setCredit(UserDao.getById(Integer.parseInt(request.getParameter("credit"))));
         transactionValidator.setDebit(UserDao.getByEmail(request.getParameter("debit")));
-        transactionValidator.setSum(Double.parseDouble(request.getParameter("sum")));
+        transactionValidator.setInputSum(request.getParameter("sum"));
 
         if (transactionValidator.validate().size() == 0) {
             Transaction transaction = new Transaction();
@@ -46,12 +46,6 @@ public class TransactionController {
 
             return "transaction/create";
         }
-//        Transaction transaction = new Transaction();
-//        transaction.setDebit(UserDao.getByEmail(request.getParameter("debit")));
-//        transaction.setCredit(UserDao.getById(Integer.parseInt(request.getParameter("credit"))));
-//        transaction.setSum(Double.parseDouble(request.getParameter("sum")));
-//        TransactionDAO.create(transaction);
-
         return "transaction/create";
     }
 

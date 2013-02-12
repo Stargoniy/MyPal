@@ -1,7 +1,6 @@
 package com.in6k.mypal.form;
 
 import org.hibernate.validator.constraints.Email;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -20,8 +19,6 @@ public class RegistrationForm {
     private String password;
 
     private String confirm;
-
-    //    @AssertFalse(message = "Password are not equal")
     public boolean isPasswordsValid() {
         if (null == password) {
             return false;
