@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionDAO {
+public class TransactionDao {
 
     public static List<Transaction> findAllForUser(User user) {
         Session session = HibernateUtil.getSessionFactory().openSession();

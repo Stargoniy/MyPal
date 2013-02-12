@@ -1,6 +1,6 @@
 package com.in6k.mypal.controller;
 
-import com.in6k.mypal.dao.TransactionDAO;
+import com.in6k.mypal.dao.TransactionDao;
 import com.in6k.mypal.dao.UserDao;
 import com.in6k.mypal.domain.Transaction;
 import com.in6k.mypal.domain.User;
@@ -44,7 +44,7 @@ public class TransactionController {
             transaction.setCredit(transactionValidator.getCredit());
             transaction.setSum(transactionValidator.getSum());
 
-            TransactionDAO.create(transaction);
+            TransactionDao.create(transaction);
 
             return "transaction/create";
         }
@@ -53,9 +53,9 @@ public class TransactionController {
 
     @RequestMapping(value = "/list")
     public String list(ModelMap model) throws IOException, SQLException {
-        //Collection<Transaction> transactions = TransactionDAO.findAllForUser(UserDao.getById(1));
+        //Collection<Transaction> transactions = TransactionDao.findAllForUser(UserDao.getById(1));
 
-        model.addAttribute("transactions", TransactionDAO.list());
+        model.addAttribute("transactions", TransactionDao.list());
 
         return "transaction/list";
     }
@@ -63,7 +63,7 @@ public class TransactionController {
     @RequestMapping(value = "/delete")
     public String delete(@RequestParam("id") int id) throws SQLException {
 
-        TransactionDAO.delete(id);
+        TransactionDao.delete(id);
         return "transaction/list";
     }
 
