@@ -7,8 +7,14 @@
 <body>
 <form  method="post" action="/transaction/create/debetfromcard">
     <h2>Payment details</h2>
-
+    <input type="radio" name="cardType" value="mastercard">Mastercard<br>
+    <input type="radio" name="cardType" value="visa">Visa
     <ul>
+        <li>
+            <label for="id_user">Card number</label>
+            <input type="text" id="id_user" name="id_Account" value="2">
+        </li>
+
         <li>
             <label for="card_number">Card number</label>
             <input type="text" id="card_number" name="card_number">
@@ -31,7 +37,7 @@
 
         <li>
             <label for="sumid">Sum</label>
-            <input type="text" id="sumid" name="sum">
+            <input type="text" id="sumid" name="sum" >
         </li>
     </ul>
 
