@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 @Entity
 @Table(name = "users")
 public class User {
+    private double balance;
+
     @Id
     @Column(name = "id")
     @GeneratedValue
@@ -64,5 +66,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 }
