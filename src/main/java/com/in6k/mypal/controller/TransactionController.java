@@ -31,7 +31,6 @@ public class TransactionController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(HttpServletRequest request) throws IOException {
-
         TransactionValidator transactionValidator = new TransactionValidator();
 
         transactionValidator.setCredit(UserDao.getById(Integer.parseInt(request.getParameter("credit"))));
@@ -54,9 +53,9 @@ public class TransactionController {
 
     @RequestMapping(value = "/list")
     public String list(ModelMap model) throws IOException, SQLException {
-        Collection<Transaction> transactions = TransactionDAO.findAllForUser(UserDao.getById(1));
+        //Collection<Transaction> transactions = TransactionDAO.findAllForUser(UserDao.getById(1));
 
-        model.addAttribute("transactions", transactions);
+        model.addAttribute("transactions", TransactionDAO.findAllForUser(UserDao.getById(1)));
 
         return "transaction/list";
     }
