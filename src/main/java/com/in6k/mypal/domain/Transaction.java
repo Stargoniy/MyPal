@@ -11,9 +11,11 @@ public class Transaction {
     private int id;
 
     @Column(name = "debit")
+    @ManyToOne
     private User debit;
 
     @Column(name = "credit")
+    @ManyToOne
     private User credit;
 
     @Column(name = "sum")
