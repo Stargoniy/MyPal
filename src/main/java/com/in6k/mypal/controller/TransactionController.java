@@ -4,6 +4,7 @@ import com.in6k.mypal.dao.TransactionDAO;
 import com.in6k.mypal.dao.UserDao;
 import com.in6k.mypal.domain.Transaction;
 import com.in6k.mypal.domain.User;
+import com.in6k.mypal.services.TransactionValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,14 +32,17 @@ public class TransactionController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(HttpServletRequest request) throws IOException {
         TransactionValidator transactionValidator = new TransactionValidator();
+
         transactionValidator.setCredit(UserDao.getById(Integer.parseInt(request.getParameter("credit"))));
         transactionValidator.setDebit(UserDao.getByEmail(request.getParameter("debit")));
         transactionValidator.setSum(Double.parseDouble(request.getParameter("sum")));
+
         if (transactionValidator.validate().size() == 0) {
             Transaction transaction = new Transaction();
             transaction.setDebit(transactionValidator.getDebit());
             transaction.setCredit(transactionValidator.getCredit());
             transaction.setSum(transactionValidator.getSum());
+
             TransactionDAO.create(transaction);
 
             return "transaction/list";
@@ -54,10 +58,7 @@ public class TransactionController {
 
     @RequestMapping(value = "/list")
     public String list(ModelMap model) throws IOException, SQLException {
-
-        Collection<Transaction> transactions = null;
-
-        transactions = TransactionDAO.findAllForUser(UserDao.getById(2));
+        Collection<Transaction> transactions = TransactionDAO.list();;
 
         model.addAttribute("transactions", transactions);
 
