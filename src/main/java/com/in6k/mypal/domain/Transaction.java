@@ -2,28 +2,16 @@ package com.in6k.mypal.domain;
 
 import javax.persistence.*;
 
-@Table(name = "transactions")
 @Entity
+@Table(name = "transactions")
 public class Transaction {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue
     private int id;
-
-    @Column(name = "debit")
-    @ManyToOne
     private User debit;
-
-    @Column(name = "credit")
-    @ManyToOne
     private User credit;
-
-    @Column(name = "sum")
     private double sum;
-
-    @Column(name = "desription")
     private String desription;
 
+    @Column(name = "desription")
     public String getDesription() {
         return desription;
     }
@@ -32,6 +20,9 @@ public class Transaction {
         this.desription = desription;
     }
 
+
+    @Id
+    @GeneratedValue
     public int getId() {
         return id;
     }
@@ -40,6 +31,8 @@ public class Transaction {
         this.id = id;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "debit_id")
     public User getDebit() {
         return debit;
     }
@@ -48,6 +41,8 @@ public class Transaction {
         this.debit = debit;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "credit_id")
     public User getCredit() {
         return credit;
     }
@@ -56,6 +51,7 @@ public class Transaction {
         this.credit = credit;
     }
 
+    @Column(name = "sum")
     public double getSum() {
         return sum;
     }

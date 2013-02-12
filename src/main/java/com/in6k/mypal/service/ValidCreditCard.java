@@ -4,17 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ValidCreditCard {
-    /*private final static String VALID_SUM = "[-+]?(?:\\b[0-9]+(?:\\.[0-9]*)?|\\.[0-9]+\\b)(?:[eE][-+]?[0-9]+\\b)?";
+    private final static String VALID_SUM = "[-+]?(?:\\b[0-9]+(?:\\.[0-9]*)?|\\.[0-9]+\\b)(?:[eE][-+]?[0-9]+\\b)?";
 
     private boolean isSumValid(String sum) {
-        return Double.toString(sum).matches(VALID_SUM);
-    }*/
+        return sum.matches(VALID_SUM);
+    }
 
-    public List validateCardInfo(String cardNumber, String expiry, String name, double sumOnCard, String cvvOnCard, String cardType){
+    public List validateCardInfo(String cardNumber, String expiry, String name, String sumOnCard, String cvvOnCard, String cardType){
         List result = new ArrayList();
 
         if(!validateTypeCard (cardNumber, cardType)) {
             result.add("cardNumber");
+        }
+
+        if(!isSumValid (sumOnCard)) {
+            result.add("sum");
         }
 
         return result;

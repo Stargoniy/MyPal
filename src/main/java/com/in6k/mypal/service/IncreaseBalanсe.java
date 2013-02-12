@@ -13,18 +13,19 @@ import java.util.List;
 
 public class IncreaseBalanсe {
 
-    public static void moneyFromCreditCard(String cardNumber, double sum, int id){
+    public static void moneyFromCreditCard(String cardNumber, String sum, int id){
 
         Transaction transaction = new Transaction();
 
         if (null != UserDao.getById(id)){
             transaction.setDebit(UserDao.getById(id));
             transaction.setCredit(UserDao.getById(id));
-            transaction.setSum(sum);
+            transaction.setSum(Double.parseDouble(sum));
             transaction.setDesription(cardNumber);
 
             try {
                 TransactionDAO.create(transaction);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -4,9 +4,11 @@ import com.in6k.mypal.dao.TransactionDAO;
 import com.in6k.mypal.dao.UserDao;
 import com.in6k.mypal.domain.Transaction;
 import com.in6k.mypal.domain.User;
-import com.in6k.mypal.service.IncreaseBalanсe;
 
+import com.in6k.mypal.service.IncreaseBalanсe;
 import com.in6k.mypal.service.ValidCreditCard;
+import com.in6k.mypal.services.TransactionValidator;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +27,7 @@ public class TransactionController {
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String creationForm(ModelMap model) {
-        User user = new User();
-        user.setEmail("petrov@gmail.com");
+        User user = UserDao.getById(1);
 
         model.addAttribute(user);
         return "transaction/create";
@@ -35,33 +36,27 @@ public class TransactionController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(HttpServletRequest request) throws IOException {
         TransactionValidator transactionValidator = new TransactionValidator();
+
         transactionValidator.setCredit(UserDao.getById(Integer.parseInt(request.getParameter("credit"))));
         transactionValidator.setDebit(UserDao.getByEmail(request.getParameter("debit")));
-        transactionValidator.setSum(Double.parseDouble(request.getParameter("sum")));
+        transactionValidator.setInputSum(request.getParameter("sum"));
+
         if (transactionValidator.validate().size() == 0) {
             Transaction transaction = new Transaction();
             transaction.setDebit(transactionValidator.getDebit());
             transaction.setCredit(transactionValidator.getCredit());
             transaction.setSum(transactionValidator.getSum());
+
             TransactionDAO.create(transaction);
 
-            return "transaction/list";
+            return "transaction/create";
         }
-//        Transaction transaction = new Transaction();
-//        transaction.setDebit(UserDao.getByEmail(request.getParameter("debit")));
-//        transaction.setCredit(UserDao.getById(Integer.parseInt(request.getParameter("credit"))));
-//        transaction.setSum(Double.parseDouble(request.getParameter("sum")));
-//        TransactionDAO.create(transaction);
-
-        return "transaction/list";
+        return "transaction/create";
     }
 
     @RequestMapping(value = "/list")
     public String list(ModelMap model) throws IOException, SQLException {
-
-        Collection<Transaction> transactions = null;
-
-        transactions = TransactionDAO.findAllForUser(UserDao.getById(2));
+        Collection<Transaction> transactions = TransactionDAO.list();;
 
         model.addAttribute("transactions", transactions);
 
@@ -79,9 +74,9 @@ public class TransactionController {
 
     @RequestMapping(value = "/create/debetfromcard", method = RequestMethod.POST)
     public String createTransactionDebetFromCard(@RequestParam("card_number") String cardNumber, @RequestParam("expiry_date") String expiryDate,
-                                                 @RequestParam("name_on_card") String nameOnCard, @RequestParam("sum") double sum,
+                                                 @RequestParam("name_on_card") String nameOnCard, @RequestParam("sum") String sum,
                                                  @RequestParam("cvv") String cvv, @RequestParam("id_Account") int id,
-                                                 @RequestParam("cardType") String cardType) throws IOException {
+                                                 @RequestParam("cardType") String cardType, ModelMap model) throws IOException {
 
         ValidCreditCard isValidCard = new ValidCreditCard();
 
@@ -89,6 +84,7 @@ public class TransactionController {
 
         if (!(validateCardInfo.size()>0)){
 
+            model.addAttribute(validateCardInfo);
             return "creditcard/create";
         }
 
