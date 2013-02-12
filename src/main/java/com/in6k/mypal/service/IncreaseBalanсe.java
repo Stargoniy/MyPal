@@ -30,12 +30,12 @@ public class IncreaseBalanсe {
 
     public boolean moneyFromCreditCard(){
 
-        Transaction transaction = new Transaction();
+        /*Transaction transaction = new Transaction();
         transaction.setDebit(debit);
         transaction.setCredit(credit);
         transaction.setSum(sum);
 
-        TransactionDAO.create(transaction);
+        TransactionDAO.create(transaction);*/
         return true;
 
     }

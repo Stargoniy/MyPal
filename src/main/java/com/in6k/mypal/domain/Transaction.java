@@ -11,10 +11,10 @@ public class Transaction {
     private int id;
 
     @Column(name = "debit")
-    private String debit;
+    private User debit;
 
     @Column(name = "credit")
-    private String credit;
+    private User credit;
 
     @Column(name = "sum")
     private double sum;
@@ -38,19 +38,19 @@ public class Transaction {
         this.id = id;
     }
 
-    public String getDebit() {
+    public User getDebit() {
         return debit;
     }
 
-    public void setDebit(String debit) {
+    public void setDebit(User debit) {
         this.debit = debit;
     }
 
-    public String getCredit() {
+    public User getCredit() {
         return credit;
     }
 
-    public void setCredit(String credit) {
+    public void setCredit(User credit) {
         this.credit = credit;
     }
 

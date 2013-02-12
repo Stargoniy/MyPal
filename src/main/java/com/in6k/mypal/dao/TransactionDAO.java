@@ -1,7 +1,9 @@
 package com.in6k.mypal.dao;
 
 import com.in6k.mypal.domain.Transaction;
+import com.in6k.mypal.domain.User;
 import com.in6k.mypal.util.HibernateUtil;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import javax.swing.*;
@@ -11,6 +13,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionDAO {
+
+    public static List<Transaction> findAllForUser(User user) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Query query = session.createSQLQuery("SELECT * FROM transactions WHERE debit=? OR credit=?;");
+        int userId = user.getId();
+        query.setInteger(0, userId);
+        query.setInteger(1, userId);
+        List<Transaction> result = query.list();
+
+        session.getTransaction().commit();
+
+        if (session != null && session.isOpen()) {
+            session.close();
+        }
+        return result;
+    }
 
     public static void create(Transaction transaction) throws IOException {
         Session session = HibernateUtil.getSessionFactory().openSession();
