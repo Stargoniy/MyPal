@@ -9,13 +9,6 @@ import javax.persistence.GeneratedValue;
 @Entity
 @Table(name = "users")
 public class User {
-<<<<<<< HEAD
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue
-=======
->>>>>>> b0c68d5e3700d55ebd7f49dac88a5ff18ef252f6
     private int id;
     private String firstName;
     private String lastName;
