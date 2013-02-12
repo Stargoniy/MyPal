@@ -31,12 +31,18 @@ public class TransactionController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(HttpServletRequest request) throws IOException {
-        TransactionValidator transactionValidator = new TransactionValidator();
+       TransactionValidator transactionValidator = new TransactionValidator();
 
-        transactionValidator.setCredit(UserDao.getById(Integer.parseInt(request.getParameter("credit"))));
-        transactionValidator.setDebit(UserDao.getByEmail(request.getParameter("debit")));
+        User user = UserDao.getById(Integer.parseInt(request.getParameter("credit")));
+        transactionValidator.setCredit(user);
+
+        User debitUser = UserDao.getByEmail(request.getParameter("debit"));
+        transactionValidator.setDebit(debitUser);
         transactionValidator.setInputSum(request.getParameter("sum"));
 
+        if (getBalance(user) > Double.parseDouble(request.getParameter("sum")) && debitUser == null) {
+            sendEmail(user.getFirstName(), request.getParameter("debit"), Integer.parseInt(request.getParameter("sum")));
+        }
 
         if (transactionValidator.validate().size() == 0) {
             Transaction transaction = new Transaction();
@@ -54,8 +60,8 @@ public class TransactionController {
     @RequestMapping(value = "/list")
     public String list(ModelMap model) throws IOException, SQLException {
 //        Collection<Transaction> transactions = TransactionDao.findAllForUser(UserDao.getById(1));
-        model.addAttribute("transactions", TransactionDao.list());
-//        model.addAttribute("transactions", TransactionDao.findAllForUser(UserDao.getById(17)));
+        //model.addAttribute("transactions", TransactionDao.list());
+          model.addAttribute("transactions", TransactionDao.findAllForUser(UserDao.getById(1)));
 
         return "transaction/list";
     }
