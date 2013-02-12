@@ -4,10 +4,13 @@ import com.in6k.mypal.domain.User;
 import com.in6k.mypal.util.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
@@ -54,4 +57,23 @@ public class UserDao {
 
         return result;
     }
+
+    public static double getBalance(User user) {
+        return 0;
+    }
+
+    public static ArrayList<User> list() {
+        ArrayList<User> result = new ArrayList<User>();
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+
+        result.addAll(session.createCriteria(User.class).list());
+
+        tx.commit();
+        session.close();
+
+        return result;
+    }
 }
+

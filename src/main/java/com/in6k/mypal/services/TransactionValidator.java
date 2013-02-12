@@ -1,4 +1,4 @@
-package com.in6k.mypal.controller;
+package com.in6k.mypal.services;
 
 import com.in6k.mypal.domain.User;
 
