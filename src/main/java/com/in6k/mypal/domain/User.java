@@ -9,23 +9,14 @@ import javax.persistence.GeneratedValue;
 @Entity
 @Table(name = "users")
 public class User {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue
     private int id;
-
-    @Column(name = "first_name")
     private String firstName;
-
-    @Column(name = "last_name")
     private String lastName;
-
-    @Column(name = "email")
     private String email;
-
-    @Column(name = "password")
     private String password;
 
+    @Id
+    @GeneratedValue
     public int getId() {
         return id;
     }
@@ -34,6 +25,7 @@ public class User {
         this.id = id;
     }
 
+    @Column(name = "first_name")
     public String getFirstName() {
         return firstName;
     }
@@ -42,6 +34,7 @@ public class User {
         this.firstName = firstName;
     }
 
+    @Column(name = "last_name")
     public String getLastName() {
         return lastName;
     }
@@ -50,6 +43,7 @@ public class User {
         this.lastName = lastName;
     }
 
+    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -58,6 +52,7 @@ public class User {
         this.email = email;
     }
 
+    @Column(name = "password")
     public String getPassword() {
         return password;
     }

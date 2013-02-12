@@ -44,7 +44,7 @@ public class TransactionController {
 
             TransactionDAO.create(transaction);
 
-            return "transaction/list";
+            return "transaction/create";
         }
 //        Transaction transaction = new Transaction();
 //        transaction.setDebit(UserDao.getByEmail(request.getParameter("debit")));
@@ -52,7 +52,7 @@ public class TransactionController {
 //        transaction.setSum(Double.parseDouble(request.getParameter("sum")));
 //        TransactionDAO.create(transaction);
 
-        return "transaction/list";
+        return "transaction/create";
     }
 
     @RequestMapping(value = "/list")
