@@ -25,27 +25,30 @@ public class TransactionController {
         Collection<User> users = UserDao.list();
 
         model.addAttribute("users", users);
+
         return "transaction/create";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(HttpServletRequest request) throws IOException {
+
         TransactionValidator transactionValidator = new TransactionValidator();
 
         transactionValidator.setCredit(UserDao.getById(Integer.parseInt(request.getParameter("credit"))));
         transactionValidator.setDebit(UserDao.getByEmail(request.getParameter("debit")));
         transactionValidator.setInputSum(request.getParameter("sum"));
 
-        if (transactionValidator.validate().size() == 0) {
+
+        /*if (transactionValidator.validate().size() == 0) {*/
             Transaction transaction = new Transaction();
             transaction.setDebit(transactionValidator.getDebit());
             transaction.setCredit(transactionValidator.getCredit());
-            transaction.setSum(transactionValidator.getSum());
+            transaction.setSum(Double.parseDouble(transactionValidator.getInputSum()));
 
             TransactionDAO.create(transaction);
 
-            return "transaction/create";
-        }
+            //return "transaction/create";
+        /*}*/
         return "transaction/create";
     }
 

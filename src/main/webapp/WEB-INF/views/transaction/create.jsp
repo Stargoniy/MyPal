@@ -7,7 +7,7 @@
     </head>
     <body>
 
-    <form action="/transaction" method="post">
+    <%--<form action="/transaction" method="post">
         From:<br>
         <select>
             <c:if test="${users != null }">
@@ -20,6 +20,10 @@
         </select><br>
 
         To:<br>
+
+        <input type="text" class="input-large" name="@Email" placeholder="summ"><br>
+
+
         <select name="accIdTo">
             <c:if test="${users != null }">
                 <c:forEach var="user" items="${users}">
@@ -28,20 +32,32 @@
             </c:if>
         </select>
 
-        <input type="text" class="input-large" name="summ" placeholder="summ">
+        <input type="text" class="input-large" name="summ" placeholder="summ"><br>
         <input type="submit" value="Add Transaction" class="btn btn-primary">
-    </form>
+    </form>--%>
 
 
     <form method="post" action="/transaction/create">
-            <p>${user.email}</p>
+
+            From:<br>
+            <select name="credit">
+                <c:if test="${users != null }">
+
+                    <c:forEach var="user" items="${users}">
+                        <option value="${user.id}"> ${user.firstName}</option>
+                    </c:forEach><br>
+
+                </c:if>
+            </select><br>
 
             Debit email:<br>
-            <input name="debit" type="text" class="input-medium" placeholder="Email"><br>
+            <input name="debit" type="text" class="input-large" placeholder="Email"><br>
+
             Sum: <br>
-            <input name="sum" type="text" class="input-medium" placeholder="Sum"><br>
+            <input name="sum" type="text" class="input-large" placeholder="Sum"><br>
+
             <button type="submit" class="btn btn-primary">Create</button>
-            <input type="hidden" name="credit" value="${user.id}" />
+
         </form>
     </body>
 </html>
