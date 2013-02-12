@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <link type="text/css" rel="stylesheet" href="../../bootstrap.css" />
+        <link type="text/css" rel="stylesheet" href="/css/bootstrap.css" />
     </head>
     <body>
         <form method="post" action="/transaction/create">
