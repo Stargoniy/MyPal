@@ -1,5 +1,6 @@
-package com.in6k.mypal.controller;
+package com.in6k.mypal.service;
 
+import com.in6k.mypal.dao.UserDao;
 import com.in6k.mypal.domain.User;
 
 import java.util.ArrayList;
@@ -8,13 +9,20 @@ import java.util.List;
 public class TransactionValidator {
     private User debit;
     private User credit;
+    private String inputSum;
     private double sum;
 
     private final static String VALID_SUM = "[-+]?(?:\\b[0-9]+(?:\\.[0-9]*)?|\\.[0-9]+\\b)(?:[eE][-+]?[0-9]+\\b)?";
 
-    private List validateErrors = new ArrayList();
-
     public TransactionValidator() {
+    }
+
+    public String getInputSum() {
+        return inputSum;
+    }
+
+    public void setInputSum(String inputSum) {
+        this.inputSum = inputSum;
     }
 
     public User getDebit() {
@@ -41,38 +49,41 @@ public class TransactionValidator {
         this.sum = sum;
     }
 
-
     private boolean isSumValid() {
-        return Double.toString(this.sum).matches(VALID_SUM);
+        try {
+            sum = Double.parseDouble(inputSum);
+        }
+        catch (NumberFormatException exception) {
+            return false;
+        }
+        if (sum > UserDao.getBalance(debit)) {
+            return false;
+        }
+        return true;
     }
 
     private boolean isDebitValid () {
-        return this.debit != null;
+        return debit != null;
     }
 
     private boolean isCreditValid () {
-        return this.credit != null;
+        return credit != null;
     }
 
-
     public List validate() {
-        String error;
-
+        List<String> result = new ArrayList();
         if(!isSumValid()) {
-            error = "Sum is not valid.";
-            validateErrors.add(error);
+            result.add("sum");
         }
 
         if(!isCreditValid()) {
-            error = "Credit is not valid.";
-            validateErrors.add(error);
+            result.add("credit");
         }
 
         if(!isDebitValid()) {
-            error = "Debit is not valid.";
-            validateErrors.add(error);
+            result.add("debit");
         }
 
-        return this.validateErrors;
+        return result;
     }
 }

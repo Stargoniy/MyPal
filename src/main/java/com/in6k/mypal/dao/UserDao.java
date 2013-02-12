@@ -58,6 +58,10 @@ public class UserDao {
         return result;
     }
 
+    public static double getBalance(User user) {
+        return 1000000; //TODO Fix Me!
+    }
+
     public static ArrayList<User> list() {
         ArrayList<User> result = new ArrayList<User>();
 

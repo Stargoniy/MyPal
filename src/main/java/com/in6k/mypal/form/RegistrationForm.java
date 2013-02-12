@@ -1,32 +1,32 @@
-package com.in6k.mypal.domain;
+package com.in6k.mypal.form;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
+import org.hibernate.validator.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-@Entity
-@Table(name = "users")
-public class User {
-    private int id;
+public class RegistrationForm {
+    @Size(min = 5, max = 25)
     private String firstName;
+
+    @Size(min = 5, max = 25)
     private String lastName;
+
+    @Email
+    @NotNull
     private String email;
+
+    @Size(min = 5, max = 25)
     private String password;
-    private boolean active;
 
-    @Id
-    @GeneratedValue
-    public int getId() {
-        return id;
+    private String confirm;
+    public boolean isPasswordsValid() {
+        if (null == password) {
+            return false;
+        }
+
+        return password.equals(confirm);
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @Column(name = "first_name")
     public String getFirstName() {
         return firstName;
     }
@@ -35,7 +35,6 @@ public class User {
         this.firstName = firstName;
     }
 
-    @Column(name = "last_name")
     public String getLastName() {
         return lastName;
     }
@@ -44,7 +43,6 @@ public class User {
         this.lastName = lastName;
     }
 
-    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -53,7 +51,6 @@ public class User {
         this.email = email;
     }
 
-    @Column(name = "password")
     public String getPassword() {
         return password;
     }
@@ -62,12 +59,11 @@ public class User {
         this.password = password;
     }
 
-    @Column(name = "active")
-    public boolean getActive() {
-        return active;
+    public String getConfirm() {
+        return confirm;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setConfirm(String confirm) {
+        this.confirm = confirm;
     }
 }
