@@ -8,13 +8,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "/founds")
 public class FundsTransfer {
 
-    @RequestMapping(value = "/transfer", method = RequestMethod.GET)
+    @RequestMapping(value = "/transfer/add", method = RequestMethod.GET)
     public String showTransferPage() {
         return "founds_transfer/foundsTransfer";
     }
 
     @RequestMapping(value = "/transfer/add", method = RequestMethod.POST)
     public String addTransfer() {
+
         return "founds_transfer/foundsTransfer";
     }
 }
