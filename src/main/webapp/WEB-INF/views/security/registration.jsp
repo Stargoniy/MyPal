@@ -51,6 +51,7 @@
         <form:input path="lastName" placeholder="Last name" class="input-block-level" /><br/>
 
         <form:errors path="email" class="error" />
+        <span class="error">${email_error}</span>
         <form:input path="email" placeholder="Email address" class="input-block-level" /><br/>
 
         <form:errors path="password" class="error" />

@@ -5,6 +5,7 @@ import com.in6k.mypal.dao.UserDao;
 import com.in6k.mypal.domain.User;
 import com.in6k.mypal.form.RegistrationForm;
 import com.in6k.mypal.service.RegistrationService;
+import com.in6k.mypal.service.UserInfo;
 import com.in6k.mypal.util.SecurityUtil;
 
 import org.springframework.stereotype.Controller;
@@ -30,15 +31,21 @@ public class SecurityController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String processRegistrationForm(@Valid RegistrationForm registrationForm,BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            model.addAttribute("registrationForm", registrationForm);
+        RegistrationService registrationService = new RegistrationService(registrationForm);
+
+        if (result.hasErrors() || registrationService.hasErrors()) {
+            if (result.hasErrors()) {
+                model.addAttribute("registrationForm", registrationForm);
+            }
+            if (registrationService.hasErrors()) {
+                model.addAttribute("email_error", "*User with this email exists");
+            }
             return "security/registration";
         }
 
-        RegistrationService registrationService = new RegistrationService(registrationForm);
         registrationService.register();
 
-        return "redirect:/registration";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -53,11 +60,22 @@ public class SecurityController {
         HttpSession session = request.getSession();
 
         User user = UserDao.getByEmail(email);
+        boolean passwordEquals = user.getPassword().equals(SecurityUtil.passwordEncoder(password));
 
-        if (UserDao.getByEmail(email) != null && user.getPassword().equals(SecurityUtil.passwordDecoder(password))) {
+        if (UserDao.getByEmail(email) != null && passwordEquals) {
             session.setAttribute("LoggedUser", user);
+        }
+        else {
+            model.addAttribute("error", "Wrong password for this user");
+            return "security/login";
         }
 
         return "redirect:/transaction/create";
+    }
+
+    @RequestMapping(value = "/logout")
+    public String logOut(HttpServletRequest request) {
+        UserInfo.logOut(request);
+        return "redirect:/login";
     }
 }

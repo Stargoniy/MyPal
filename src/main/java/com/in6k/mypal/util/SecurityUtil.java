@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 
 public class SecurityUtil {
 
-    public static String passwordDecoder(String plainPassword) {
+    public static String passwordEncoder(String plainPassword) {
         MessageDigest md5 = null;
         StringBuffer  hexString = new StringBuffer();
 

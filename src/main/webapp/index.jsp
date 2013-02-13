@@ -16,7 +16,7 @@
 
     <p>Manage your finance using our service</p>
 
-    <p><a href="login.jsp" class="btn btn-primary btn-large">Log-in &raquo;</a></p>
+    <p><a href="login" class="btn btn-primary btn-large">Log-in &raquo;</a></p>
 
     <p>Still don't have an account?</p>
 
