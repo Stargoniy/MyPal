@@ -27,6 +27,9 @@ public class TransactionController {
         HttpSession session = request.getSession();
 
         User userSession = (User) session.getAttribute("LoggedUser");
+        if (userSession == null) {
+            return "redirect:/login";
+        }
         model.addAttribute("sess", userSession);
 
         Collection<User> users = UserDao.list();

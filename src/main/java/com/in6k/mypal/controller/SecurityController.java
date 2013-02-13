@@ -5,6 +5,7 @@ import com.in6k.mypal.dao.UserDao;
 import com.in6k.mypal.domain.User;
 import com.in6k.mypal.form.RegistrationForm;
 import com.in6k.mypal.service.RegistrationService;
+import com.in6k.mypal.service.UserInfo;
 import com.in6k.mypal.util.SecurityUtil;
 
 import org.springframework.stereotype.Controller;
@@ -57,7 +58,17 @@ public class SecurityController {
         if (UserDao.getByEmail(email) != null && user.getPassword().equals(SecurityUtil.passwordDecoder(password))) {
             session.setAttribute("LoggedUser", user);
         }
+        else {
+            model.addAttribute("error", "Wrong password for this user");
+            return "login";
+        }
 
         return "redirect:/transaction/create";
+    }
+
+    @RequestMapping(value = "/logout")
+    public String logOut(HttpServletRequest request) {
+        UserInfo.logOut(request);
+        return "redirect:/login";
     }
 }
