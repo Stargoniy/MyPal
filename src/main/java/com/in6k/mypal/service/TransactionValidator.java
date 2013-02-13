@@ -56,7 +56,7 @@ public class TransactionValidator {
         catch (NumberFormatException exception) {
             return false;
         }
-        if (sum > UserDao.getBalance(debit)) {
+        if (sum > UserDao.getBalance(credit)) {
             return false;
         }
         return true;
