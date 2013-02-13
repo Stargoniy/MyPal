@@ -4,6 +4,7 @@ import com.in6k.mypal.dao.TransactionDao;
 import com.in6k.mypal.dao.UserDao;
 import com.in6k.mypal.domain.Transaction;
 import com.in6k.mypal.domain.User;
+import com.in6k.mypal.service.Inviter;
 import com.in6k.mypal.service.TransactionValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -40,8 +41,8 @@ public class TransactionController {
         transactionValidator.setDebit(debitUser);
         transactionValidator.setInputSum(request.getParameter("sum"));
 
-        if (getBalance(user) > Double.parseDouble(request.getParameter("sum")) && debitUser == null) {
-            sendEmail(user.getFirstName(), request.getParameter("debit"), Integer.parseInt(request.getParameter("sum")));
+        if (UserDao.getBalance(user) > Double.parseDouble(request.getParameter("sum")) && debitUser == null) {
+            Inviter.sendEmail(user.getFirstName(), request.getParameter("debit"), Integer.parseInt(request.getParameter("sum")));
         }
 
         if (transactionValidator.validate().size() == 0) {
