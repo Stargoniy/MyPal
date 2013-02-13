@@ -23,7 +23,6 @@ public class RegistrationForm {
     @NotEmpty(message = "*Password should not be empty")
     private String password;
 
-
     private String confirm;
 
     public boolean isPasswordsValid() {
@@ -63,7 +62,7 @@ public class RegistrationForm {
     }
 
     public void setPassword(String password) {
-        this.password = SecurityUtil.passwordEncoder(password);
+        this.password = password;
     }
 
     public String getConfirm() {
