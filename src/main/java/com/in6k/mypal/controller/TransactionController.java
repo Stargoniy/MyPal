@@ -39,9 +39,6 @@ public class TransactionController {
         model.addAttribute("sess", userSession);
         model.addAttribute("balance", UserDao.getBalance(userSession));
 
-        Collection<User> users = UserDao.list();
-        model.addAttribute("users", users);
-
         return "transaction/create";
     }
 
