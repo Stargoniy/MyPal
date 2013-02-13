@@ -13,13 +13,13 @@ import javax.servlet.http.HttpSession;
 public class UserViewController {
     @RequestMapping(value = "")
     public String creationForm(ModelMap model, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-
-        User userSession = (User) session.getAttribute("LoggedUser");
-        if (userSession == null) {
-            return "redirect:/login";
-        }
-        model.addAttribute("sess", userSession);
+//        HttpSession session = request.getSession();
+//
+//        User userSession = (User) session.getAttribute("LoggedUser");
+//        if (userSession == null) {
+//            return "redirect:/login";
+//        }
+//        model.addAttribute("sess", userSession);
 
         return "home";
     }

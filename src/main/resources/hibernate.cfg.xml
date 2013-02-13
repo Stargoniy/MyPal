@@ -30,7 +30,7 @@
         <mapping class="com.in6k.mypal.domain.User" />
         <mapping class="com.in6k.mypal.domain.Transaction" />
         <!--<mapping resource="entity/Account.hbm.xml"/>-->
-        <!--<mapping resource="entity/Transaction.hbm.xml"/>-->
+
     </session-factory>
 
 </hibernate-configuration>

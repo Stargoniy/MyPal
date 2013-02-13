@@ -9,6 +9,17 @@ public class Transaction {
     private User debit;
     private User credit;
     private double sum;
+    private String description;
+
+    @Column(name = "description")
+    public String getDesription() {
+        return description;
+    }
+
+    public void setDesription(String desription) {
+        this.description = desription;
+    }
+
 
     @Id
     @GeneratedValue

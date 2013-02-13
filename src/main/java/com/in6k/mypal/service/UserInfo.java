@@ -48,9 +48,10 @@ public class UserInfo {
     public static void logOut(HttpServletRequest request) {
          HttpSession session = request.getSession();
         if (session != null) {
-            session = null;
+            session.setAttribute("LoggedUser", null);
         }
     }
+
     public static boolean isLogged(HttpServletRequest request) {
         HttpSession session = request.getSession();
 
