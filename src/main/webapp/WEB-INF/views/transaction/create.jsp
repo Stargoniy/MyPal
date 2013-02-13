@@ -7,37 +7,17 @@
     </head>
     <body>
 
-    <%--<form action="/transaction" method="post">
-        From:<br>
-        <select>
-            <c:if test="${users != null }">
 
-                <c:forEach var="user" items="${users}">
-                    <option value="${user.id}"> ${user.firstName}</option>
-                </c:forEach><br>
+        <c:out value="${sess.email}" />
 
-            </c:if>
-        </select><br>
+        <ul class="nav nav-tabs">
+            <li><a href="/registration">Home</a></li>
+            <li class="active"><a href="/transaction/create">Create transaction</a></li>
+            <li><a href="/transaction/list">Transactions</a></li>
+            <li><a href="/logout">Log out</a></li>
+        </ul>
 
-        To:<br>
-
-        <input type="text" class="input-large" name="@Email" placeholder="summ"><br>
-
-
-        <select name="accIdTo">
-            <c:if test="${users != null }">
-                <c:forEach var="user" items="${users}">
-                    <option value="${user.id}">${user.firstName}</option>
-                </c:forEach>
-            </c:if>
-        </select>
-
-        <input type="text" class="input-large" name="summ" placeholder="summ"><br>
-        <input type="submit" value="Add Transaction" class="btn btn-primary">
-    </form>--%>
-
-
-    <form method="post" action="/transaction/create">
+        <form method="post" action="/transaction/create">
 
             From:<br>
             <select name="credit">

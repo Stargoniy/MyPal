@@ -33,7 +33,7 @@ public class Inviter {
                     InternetAddress.parse(email));
             message.setSubject("In6k PayPal");
             message.setText("Dear Friend,"
-                    + "\n\n Mr." + name + " send to you " + sum + "$, please, create an account in our PayPal system! \n" +
+                    + "\n\n Mr." + name + " send to you " + sum + "$, please, create an account in our MyPal system! \n" +
                     "Just follow the next link http://localhost:8080/registration");
 
             Transport.send(message);
