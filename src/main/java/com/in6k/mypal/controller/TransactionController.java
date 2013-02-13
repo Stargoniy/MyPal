@@ -68,9 +68,9 @@ public class TransactionController {
 
             TransactionDao.create(transaction);
 
-            return "transaction/create";
+            return "redirect:/transaction/create";
         }
-        return "transaction/create";
+        return "redirect:/transaction/create";
     }
 
     @RequestMapping(value = "/history")
