@@ -34,8 +34,12 @@ public class SecurityController {
         RegistrationService registrationService = new RegistrationService(registrationForm);
 
         if (result.hasErrors() || registrationService.hasErrors()) {
-            model.addAttribute("registrationForm", registrationForm);
-            model.addAttribute("email_error", "*User with this email exists");
+            if (result.hasErrors()) {
+                model.addAttribute("registrationForm", registrationForm);
+            }
+            if (registrationService.hasErrors()) {
+                model.addAttribute("email_error", "*User with this email exists");
+            }
             return "security/registration";
         }
 
