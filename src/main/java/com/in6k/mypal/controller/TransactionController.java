@@ -43,7 +43,7 @@ public class TransactionController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(HttpServletRequest request, ModelMap model) throws IOException {
+    public String create(HttpServletRequest request) throws IOException {
         TransactionValidator transactionValidator = new TransactionValidator();
 
         HttpSession session = request.getSession();
