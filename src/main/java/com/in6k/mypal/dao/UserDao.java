@@ -8,8 +8,6 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
 
 import javax.swing.*;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.in6k.mypal.controller;
 
-import com.in6k.mypal.service.RegistrationService;
 import com.in6k.mypal.form.RegistrationForm;
+import com.in6k.mypal.service.RegistrationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

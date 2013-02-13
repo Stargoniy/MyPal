@@ -1,18 +1,13 @@
 package com.in6k.mypal;
 
 import com.in6k.mypal.controller.AdminController;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.server.MockMvc;
 import org.springframework.test.web.server.setup.MockMvcBuilders;
 
+import static org.springframework.test.web.server.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.server.request.MockMvcRequestBuilders.*;
 
 
 
