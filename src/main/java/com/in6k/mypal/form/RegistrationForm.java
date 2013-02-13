@@ -22,6 +22,7 @@ public class RegistrationForm {
     @NotEmpty(message = "*Password should not be empty")
     private String password;
 
+
     private String confirm;
 
     public boolean isPasswordsValid() {

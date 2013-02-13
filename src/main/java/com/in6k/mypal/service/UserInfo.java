@@ -33,7 +33,7 @@ public class UserInfo {
         HttpSession session = request.getSession();
 
         User user = UserDao.getByEmail(email);
-        boolean isPasswordEquals = user.getPassword().equals(SecurityUtil.passwordDecoder(password));
+        boolean isPasswordEquals = user.getPassword().equals(SecurityUtil.passwordEncoder(password));
 
         if (user != null && isPasswordEquals) {
             session.setAttribute("LoggedUser", user);
