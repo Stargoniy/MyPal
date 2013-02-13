@@ -21,6 +21,8 @@
     <p>Still don't have an account?</p>
 
     <p><a href="/registration" class="btn btn-primary btn-large">Registration</a></p>
+    <p><a href="/transaction/create" class="btn btn-primary btn-large">Create transaction</a></p>
+    <p><a href="/transaction/list" class="btn btn-primary btn-large">List transaction</a></p>
 
 </div>
 
