@@ -10,10 +10,10 @@ public class ValidCreditCard {
         return sum.matches(VALID_SUM);
     }
 
-    public List validateCardInfo(String cardNumber, String sumOnCard, String cardType){
+    public List validateCardInfo(String cardNumber, String sumOnCard){
         List result = new ArrayList();
 
-        if(!validateTypeCard (cardNumber, cardType)) {
+        if(!validateTypeCard (cardNumber)) {
             result.add("cardNumber");
         }
 
@@ -63,17 +63,19 @@ public class ValidCreditCard {
         return modulus == 0;
     }
 
-    private boolean validateTypeCard(String number, String type) {
+    private boolean validateTypeCard(String number) {
 
-        String s = type.toLowerCase();
-        if (s.equals("mastercard")) {
+        String typeCardNumber = number;
+        typeCardNumber = typeCardNumber.substring(1,2);
+
+        if (typeCardNumber.equals("5")) {
             if (number.length() != 16 ||
                     Integer.parseInt(number.substring(0, 2)) < 51 ||
                     Integer.parseInt(number.substring(0, 2)) > 55) {
                 return false;
             }
 
-        } else if (s.equals("visa")) {
+        } else if (typeCardNumber.equals("4")) {
             if ((number.length() != 13 && number.length() != 16) ||
                     Integer.parseInt(number.substring(0, 1)) != 4) {
                 return false;

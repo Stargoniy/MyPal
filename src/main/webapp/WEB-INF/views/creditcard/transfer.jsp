@@ -1,9 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<!DOCTYPE HTML>
 <html>
 <head>
     <title></title>
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.css">
 </head>
 <body>
 
@@ -16,29 +17,39 @@
         </c:forEach>
     </c:if>
 
-    <form  method="post" action="/transaction/create/debitedtothecard">
-    <h2>Payment details</h2>
-        <input type="radio" name="cardType" value="mastercard">Mastercard<br>
-        <input type="radio" name="cardType" value="visa">Visa
+    <ul class="nav nav-tabs">
+        <li>
+            <a href="http://localhost:8080/transaction/create/creditfromcard">From card</a>
+        </li>
+        <li class="active">
+            <a href="http://localhost:8080/transaction/create/debitedtothecard">To the card</a>
+        </li>
+    </ul>
 
-        <ul>
-            <li>
-                <label for="id_user">AccountID</label>
-                <input type="text" id="id_user" name="id_Account" value="2">
-            </li>
-
-            <li>
-                <label for="card_number">Card number</label>
-                <input type="text" id="card_number" name="card_number">
-            </li>
-
-            <li>
-                <label for="sumid">Sum</label>
-                <input type="text" id="sumid" name="sum" >
-            </li>
-        </ul>
-
-        <button type="submit">Create</button>
+    <form class="form-horizontal" method="post" action="/transaction/create/creditfromcard">
+        <div class="control-group">
+            <label class="control-label" for="id_user">AccountID</label>
+            <div class="controls">
+                <input type="text" id="id_user" name = "id_Account" placeholder="AccountID">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="card_number">Card number</label>
+            <div class="controls">
+                <input type="text" id="card_number" name = "card_number" placeholder="Card number">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="sumid">Sum</label>
+            <div class="controls">
+                <input type="text" id="sumid" name="sum" placeholder="Sum">
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn">Send money</button>
+            </div>
+        </div>
     </form>
 </body>
 </html>
