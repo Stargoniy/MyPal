@@ -60,13 +60,14 @@ public class SecurityController {
         HttpSession session = request.getSession();
 
         User user = UserDao.getByEmail(email);
+        boolean passwordEquals = user.getPassword().equals(SecurityUtil.passwordEncoder(password));
 
-        if (UserDao.getByEmail(email) != null && user.getPassword().equals(SecurityUtil.passwordEncoder(password))) {
+        if (UserDao.getByEmail(email) != null && passwordEquals) {
             session.setAttribute("LoggedUser", user);
         }
         else {
             model.addAttribute("error", "Wrong password for this user");
-            return "login";
+            return "security/login";
         }
 
         return "redirect:/transaction/create";
