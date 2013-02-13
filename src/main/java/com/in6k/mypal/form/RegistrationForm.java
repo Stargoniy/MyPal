@@ -1,25 +1,31 @@
 package com.in6k.mypal.form;
 
+import com.in6k.mypal.util.SecurityUtil;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class RegistrationForm {
-    @Size(min = 5, max = 25)
+
+    @NotEmpty(message = "*First name should not be empty")
     private String firstName;
 
-    @Size(min = 5, max = 25)
+    @NotEmpty(message = "*Last name should not be empty")
     private String lastName;
 
-    @Email
-    @NotNull
+    @Email(message = "*It is not valid email")
+    @NotEmpty(message = "*Email should not be empty")
     private String email;
 
-    @Size(min = 5, max = 25)
+    @NotEmpty(message = "*Password should not be empty")
     private String password;
 
+
     private String confirm;
+
     public boolean isPasswordsValid() {
         if (null == password) {
             return false;
@@ -57,7 +63,7 @@ public class RegistrationForm {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = SecurityUtil.passwordEncoder(password);
     }
 
     public String getConfirm() {

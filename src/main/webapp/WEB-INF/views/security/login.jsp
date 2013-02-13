@@ -1,11 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
     <link type="text/css" rel="stylesheet" href="/css/bootstrap.css" />
-    <title>Registration</title>
+    <title>Sign in</title>
     <style type="text/css">
         body {
             padding-top: 40px;
@@ -39,29 +38,17 @@
 
 </head>
 <body>
-
 <div class="container">
-    <form:form method="post" action="/registration" commandName="registrationForm" class="form-signin" >
-        <h2>Registration</h2>
+    <form method="post" action="/login" class="form-signin" >
+        <h2>Sign in</h2>
 
-        <form:errors path="firstName" class="error" />
-        <form:input path="firstName" placeholder="First name" class="input-block-level" /><br/>
+        <input type="text" name="email" class="input-block-level" placeholder="Email" />
+        <input type="password" name="password" class="input-block-level" placeholder="Password" />
 
-        <form:errors path="lastName" class="error" />
-        <form:input path="lastName" placeholder="Last name" class="input-block-level" /><br/>
+        <input class="btn btn-large btn-primary" type="submit" value="Log in" />
 
-        <form:errors path="email" class="error" />
-        <span class="error">${email_error}</span>
-        <form:input path="email" placeholder="Email address" class="input-block-level" /><br/>
-
-        <form:errors path="password" class="error" />
-        <form:password path="password" placeholder="Password" class="input-block-level" /><br/>
-
-        <form:errors path="confirm" class="error" />
-        <form:password path="confirm" placeholder="Confirm password" class="input-block-level" /><br/>
-
-        <input class="btn btn-large btn-primary" type="submit" value="Register" />
-    </form:form>
+        <span style="padding:0px 10px;"><a href="/registration">Registration</a></span>
+    </form>
 </div>
 
 </body>
