@@ -57,7 +57,7 @@ public class UserDao {
     }
 
     public static double getBalance(User user) {
-        double result = 0;
+        double result;
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
