@@ -7,15 +7,16 @@
     </head>
     <body>
         <legend>
-            <div><c:out value="${sess.email}" /></div>
-            <div>Balance: <c:out value="${balance}" />$</div>
+            <span><c:out value="${sess.email}" /></span>
+            <span style="float: right">Balance: <c:out value="${balance}" />$</span>
         </legend>
 
         <ul class="nav nav-tabs">
-            <li><a href="/registration">Home</a></li>
-            <li class="active"><a href="/transaction/create">Create transaction</a></li>
-            <li><a href="/transaction/list">Transactions</a></li>
-            <li><a href="/logout">Log out</a></li>
+            <li><a href="/transaction/create">Pay</a></li>
+            <li><a href="/transaction/create">Cash-out</a></li>
+            <li class="active"><a href="/transaction/create">Send money</a></li>
+            <li><a href="/transaction/create/list">History</a></li>
+            <li style="float: right"><a href="/logout">Log out</a></li>
         </ul>
 
         <form method="post" action="/transaction/create">
