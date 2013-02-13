@@ -7,7 +7,7 @@
     <session-factory>
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost/mypal</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/mypal</property>
         <property name="connection.username">root</property>
         <property name="connection.password">77777</property>
 
@@ -24,7 +24,7 @@
         <property name="show_sql">true</property>
 
          <!--Drop and re-create the database schema on startup -->
-        <property name="hbm2ddl.auto">create</property>
+        <property name="hbm2ddl.auto">update</property>
 
         <!-- Names the annotated entity class -->
         <mapping class="com.in6k.mypal.domain.User" />

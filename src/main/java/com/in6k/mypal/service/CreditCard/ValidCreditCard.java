@@ -1,4 +1,4 @@
-package com.in6k.mypal.service;
+package com.in6k.mypal.service.CreditCard;
 
 import java.util.ArrayList;
 import java.util.List;
