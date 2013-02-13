@@ -20,6 +20,7 @@ public class RegistrationForm {
     private String password;
 
     private String confirm;
+
     public boolean isPasswordsValid() {
         if (null == password) {
             return false;
