@@ -56,7 +56,7 @@
         <form:errors path="password" class="error" />
         <form:password path="password" placeholder="Password" class="input-block-level" /><br/>
 
-        <form:errors path="passwordEquals" class="error" />
+        <form:errors path="confirm" class="error" />
         <form:password path="confirm" placeholder="Confirm password" class="input-block-level" /><br/>
 
         <input class="btn btn-large btn-primary" type="submit" value="Register" />
