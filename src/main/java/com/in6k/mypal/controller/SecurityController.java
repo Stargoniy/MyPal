@@ -48,9 +48,8 @@ public class SecurityController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String showLoginForm() {
-
         return "security/login";
     }
 
@@ -59,11 +58,10 @@ public class SecurityController {
                         HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        User user = UserDao.getByEmail(email);
-        boolean passwordEquals = user.getPassword().equals(SecurityUtil.passwordEncoder(password));
+        LoginForm loginForm = new LoginForm(email, password);
 
-        if (UserDao.getByEmail(email) != null && passwordEquals) {
-            session.setAttribute("LoggedUser", user);
+        if (loginForm.isPasswordMatch()) {
+            session.setAttribute("LoggedUser", loginForm.getUser());
         }
         else {
             model.addAttribute("error", "Wrong password for this user");
@@ -75,7 +73,8 @@ public class SecurityController {
 
     @RequestMapping(value = "/logout")
     public String logOut(HttpServletRequest request) {
-        UserInfo.logOut(request);
+        HttpSession session = request.getSession();
+        session.setAttribute("LoggedUser", null);
         return "redirect:/login";
     }
 }
