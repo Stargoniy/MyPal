@@ -31,6 +31,7 @@ public class TransactionController {
             return "redirect:/login";
         }
         model.addAttribute("sess", userSession);
+        model.addAttribute("balance", UserDao.getBalance(userSession));
 
         Collection<User> users = UserDao.list();
         model.addAttribute("users", users);
