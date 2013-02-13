@@ -22,14 +22,16 @@ public class SecurityController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String processRegistrationForm(@Valid RegistrationForm registrationForm,BindingResult result, Model model) {
-        if (result.hasErrors()) {
+        RegistrationService registrationService = new RegistrationService(registrationForm);
+
+        if (result.hasErrors() || registrationService.hasErrors()) {
             model.addAttribute("registrationForm", registrationForm);
+            model.addAttribute("email_error", "*User with this email exists");
             return "security/registration";
         }
 
-        RegistrationService registrationService = new RegistrationService(registrationForm);
         registrationService.register();
 
-        return "redirect:/registration";
+        return "redirect:/";
     }
 }
