@@ -51,4 +51,22 @@ public class UserInfo {
             session = null;
         }
     }
+    public static boolean isLogged(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        User userSession = (User) session.getAttribute("LoggedUser");
+
+        if (userSession == null) {
+            return false;
+        }
+        return true;
+    }
+
+    /*public String is
+        User userSession = (User) session.getAttribute("LoggedUser");
+        if (UserInfo.isLogged()) {
+            return "redirect:/login";
+        }
+        model.addAttribute("sess", userSession);
+    }*/
 }

@@ -7,7 +7,6 @@
     </head>
     <body>
 
-
         <c:out value="${sess.email}" />
 
         <ul class="nav nav-tabs">
@@ -19,7 +18,7 @@
 
         <form method="post" action="/transaction/create">
 
-            From:<br>
+            <%--From:<br>
             <select name="credit">
                 <c:if test="${users != null }">
 
@@ -28,7 +27,7 @@
                     </c:forEach><br>
 
                 </c:if>
-            </select><br>
+            </select><br>--%>
 
             Debit email:<br>
             <input name="debit" type="text" class="input-large" placeholder="Email"><br>

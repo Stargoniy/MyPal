@@ -6,6 +6,8 @@
     </head>
     <body>
 
+    <c:out value="${sess.email}" />
+
         <ul class="nav nav-tabs">
             <li><a href="/registration">Home</a></li>
             <li><a href="/transaction/create">Create transaction</a></li>

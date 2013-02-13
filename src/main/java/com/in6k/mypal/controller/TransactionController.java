@@ -42,15 +42,18 @@ public class TransactionController {
     public String create(HttpServletRequest request, ModelMap model) throws IOException {
         TransactionValidator transactionValidator = new TransactionValidator();
 
-        User user = UserDao.getById(Integer.parseInt(request.getParameter("credit")));
-        transactionValidator.setCredit(user);
+        HttpSession session = request.getSession();
+
+        User userSession = (User) session.getAttribute("LoggedUser");
+
+        transactionValidator.setCredit(userSession);
 
         User debitUser = UserDao.getByEmail(request.getParameter("debit"));
         transactionValidator.setDebit(debitUser);
         transactionValidator.setInputSum(request.getParameter("sum"));
 
-        if (UserDao.getBalance(user) > Double.parseDouble(request.getParameter("sum")) && debitUser == null) {
-            Inviter.sendEmail(user.getFirstName(), request.getParameter("debit"), Integer.parseInt(request.getParameter("sum")));
+        if (UserDao.getBalance(userSession) > Double.parseDouble(request.getParameter("sum")) && debitUser == null) {
+            Inviter.sendEmail(userSession.getFirstName(), request.getParameter("debit"), Integer.parseInt(request.getParameter("sum")));
         }
 
         if (transactionValidator.validate().size() == 0) {
@@ -67,9 +70,16 @@ public class TransactionController {
     }
 
     @RequestMapping(value = "/list")
-    public String list(ModelMap model) throws IOException, SQLException {
+    public String list(ModelMap model, HttpServletRequest request) throws IOException, SQLException {
+        HttpSession session = request.getSession();
+
+        User userSession = (User) session.getAttribute("LoggedUser");
+        if (userSession == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("sess", userSession);
         //model.addAttribute("transactions", TransactionDao.list());
-          model.addAttribute("transactions", TransactionDao.findAllForUser(UserDao.getById(1)));
+        model.addAttribute("transactions", TransactionDao.list());
 
         return "transaction/list";
     }

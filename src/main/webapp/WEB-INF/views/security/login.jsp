@@ -1,26 +1,55 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" session="true" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<!DOCTYPE html>
 <html>
-    <head>
-        <link type="text/css" rel="stylesheet" href="/css/bootstrap.css" />
-        <title></title>
-    </head>
-    <body>
-        <h3>Signin In</h3>
+<head>
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.css" />
+    <title>Sign in</title>
+    <style type="text/css">
+        body {
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #f5f5f5;
+        }
+        .form-signin {
+            max-width: 300px;
+            padding: 19px 29px 29px;
+            margin: 0 auto 20px;
+            background-color: #fff;
+            border: 1px solid #e5e5e5;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+            -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+            box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        }
+        .form-signin input[type="text"],
+        .form-signin input[type="password"] {
+            font-size: 16px;
+            height: auto;
+            margin-bottom: 15px;
+            padding: 7px 9px;
+        }
+        .error {
+            color: red;
+        }
+    </style>
 
-        <form method="post" action="/login">
+</head>
+<body>
+<div class="container">
+    <form method="post" action="/login" class="form-signin" >
+        <h2>Sign in</h2>
 
-            Email<br>
-            <input name="email" type="text" class="input-large" placeholder="Email"><br>
+        <input type="text" name="email" class="input-block-level" placeholder="Email" />
+        <input type="password" name="password" class="input-block-level" placeholder="Password" />
 
-            Password <br>
-            <input name="password" type="text" class="input-large" placeholder="Password"><br>
+        <input class="btn btn-large btn-primary" type="submit" value="Log in" />
 
-            <button type="submit" class="btn btn-primary">Log In</button>
+        <span style="padding:0px 10px;"><a href="/registration">Registration</a></span>
+    </form>
+</div>
 
-            <span style="padding:0px 10px;"><a href="/registration">Registration</a></span>
-
-        </form>
-    </body>
+</body>
 </html>
