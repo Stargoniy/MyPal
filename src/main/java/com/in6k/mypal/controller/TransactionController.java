@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
@@ -27,17 +28,21 @@ import java.util.List;
 public class TransactionController {
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String creationForm(ModelMap model) {
-        Collection<User> users = UserDao.list();
+    public String creationForm(ModelMap model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
 
+        User userSession = (User) session.getAttribute("LoggedUser");
+        model.addAttribute("sess", userSession);
+
+        Collection<User> users = UserDao.list();
         model.addAttribute("users", users);
 
         return "transaction/create";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(HttpServletRequest request) throws IOException {
-       TransactionValidator transactionValidator = new TransactionValidator();
+    public String create(HttpServletRequest request, ModelMap model) throws IOException {
+        TransactionValidator transactionValidator = new TransactionValidator();
 
         User user = UserDao.getById(Integer.parseInt(request.getParameter("credit")));
         transactionValidator.setCredit(user);
@@ -65,7 +70,6 @@ public class TransactionController {
 
     @RequestMapping(value = "/list")
     public String list(ModelMap model) throws IOException, SQLException {
-//        Collection<Transaction> transactions = TransactionDao.findAllForUser(UserDao.getById(1));
         //model.addAttribute("transactions", TransactionDao.list());
           model.addAttribute("transactions", TransactionDao.findAllForUser(UserDao.getById(1)));
 
