@@ -76,6 +76,21 @@ public class TransactionController {
         return "transaction/create";
     }
 
+    @RequestMapping(value = "/history")
+    public String history(ModelMap model, HttpServletRequest request) throws IOException, SQLException {
+        HttpSession session = request.getSession();
+
+        User userSession = (User) session.getAttribute("LoggedUser");
+        if (userSession == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("sess", userSession);
+        model.addAttribute("balance", UserDao.getBalance(userSession));
+        model.addAttribute("transactions", TransactionDao.findAllForUser(userSession));
+
+        return "transaction/list";
+    }
+
     @RequestMapping(value = "/list")
     public String list(ModelMap model, HttpServletRequest request) throws IOException, SQLException {
         HttpSession session = request.getSession();
