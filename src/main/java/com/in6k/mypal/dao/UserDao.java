@@ -61,21 +61,20 @@ public class UserDao {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
-        Query queryDebitSum = session.createSQLQuery("SELECT sum(sum) FROM transactions WHERE debit_id=?;");
-        queryDebitSum.setInteger(0, user.getId());
+        Query query = session.createSQLQuery("SELECT sum(sum), (SELECT sum(sum) FROM transactions WHERE debit_id=?) FROM transactions WHERE credit_id=?;");
+        query.setInteger(0, user.getId());
+        query.setInteger(1, user.getId());
+
+        double creditSum = 0;
         double debitSum = 0;
-        Object objectDebitSum = queryDebitSum.list().get(0);
-        if (objectDebitSum != null) {
-            debitSum = (Double) objectDebitSum;
+        Object[] doubles = (Object[]) query.list().get(0);
+        if (doubles[0] != null) {
+            creditSum = (Double) doubles[0];
+        }
+        if (doubles[1] != null) {
+            debitSum = (Double) doubles[1];
         }
 
-        Query queryCreditSum = session.createSQLQuery("SELECT sum(sum) FROM transactions WHERE credit_id=?;");
-        queryCreditSum.setInteger(0, user.getId());
-        double creditSum = 0;
-        Object objectCreditSum = queryCreditSum.list().get(0);
-        if (objectCreditSum != null) {
-            creditSum = (Double) objectCreditSum;
-        }
         result = debitSum - creditSum;
         result *= 1000;
         result = Math.round(result);
@@ -84,7 +83,6 @@ public class UserDao {
         session.close();
 
         return result;
-//        return 1000000; //TODO Fix Me!
     }
 
     public static ArrayList<User> list() {
