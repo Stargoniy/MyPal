@@ -19,6 +19,8 @@
 
             <button type="submit" class="btn btn-primary">Log In</button>
 
+            <span style="padding:0px 10px;"><a href="/registration">Registration</a></span>
+
         </form>
     </body>
 </html>
