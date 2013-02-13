@@ -31,18 +31,15 @@ public class TransactionController {
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String creationForm(ModelMap model, HttpServletRequest request) {
-        /*HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
 
         User userSession = (User) session.getAttribute("LoggedUser");
-        if (userSession == null) {
+        if (null == userSession) {
             return "redirect:/login";
         }
+
         model.addAttribute("sess", userSession);
-        model.addAttribute("balance", UserDao.getBalance(userSession));*/
-        UserInfo.isLogged(request, model);
-        if (model.isEmpty()) {
-            return "redirect:/login";
-        }
+        model.addAttribute("balance", UserDao.getBalance(userSession));
 
         return "transaction/create";
     }
