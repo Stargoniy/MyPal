@@ -9,15 +9,15 @@ public class Transaction {
     private User debit;
     private User credit;
     private double sum;
-    private String desription;
+    private String description;
 
-    @Column(name = "desription")
+    @Column(name = "description")
     public String getDesription() {
-        return desription;
+        return description;
     }
 
     public void setDesription(String desription) {
-        this.desription = desription;
+        this.description = desription;
     }
 
 
