@@ -8,9 +8,16 @@
     <body>
 
 
-    <c:out value="${sess.email}" />
+        <c:out value="${sess.email}" />
 
-    <form method="post" action="/transaction/create">
+        <ul class="nav nav-tabs">
+            <li><a href="/registration">Home</a></li>
+            <li class="active"><a href="/transaction/create">Create transaction</a></li>
+            <li><a href="/transaction/list">Transactions</a></li>
+            <li><a href="/logout">Log out</a></li>
+        </ul>
+
+        <form method="post" action="/transaction/create">
 
             From:<br>
             <select name="credit">
