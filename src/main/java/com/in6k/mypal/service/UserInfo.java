@@ -9,25 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class UserInfo {
-    boolean  loginFlag = false;
-
-    public UserInfo() {
-    }
-
-    public void login() {
-        loginFlag = true;
-    }
-
-    public String isLogin() {
-        if (!loginFlag) {
-            return "false";
-        }
-        return "true";
-    }
-
-    public void Logout() {
-        loginFlag = false;
-    }
 
     public boolean isLogged(String email, String password, ModelMap model, HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -47,27 +28,17 @@ public class UserInfo {
 
     public static void logOut(HttpServletRequest request) {
          HttpSession session = request.getSession();
-        if (session != null) {
-            session.setAttribute("LoggedUser", null);
-        }
+         session.setAttribute("LoggedUser", null);
     }
 
-    public static boolean isLogged(HttpServletRequest request) {
+    public static void isLogged(HttpServletRequest request, ModelMap model) {
         HttpSession session = request.getSession();
-
         User userSession = (User) session.getAttribute("LoggedUser");
 
-        if (userSession == null) {
-            return false;
+        if (userSession != null) {
+            model.addAttribute("sess", userSession);
+            model.addAttribute("balance", UserDao.getBalance(userSession));
         }
-        return true;
     }
 
-    /*public String is
-        User userSession = (User) session.getAttribute("LoggedUser");
-        if (UserInfo.isLogged()) {
-            return "redirect:/login";
-        }
-        model.addAttribute("sess", userSession);
-    }*/
 }

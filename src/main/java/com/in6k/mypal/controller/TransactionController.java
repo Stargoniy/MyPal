@@ -6,6 +6,7 @@ import com.in6k.mypal.domain.Transaction;
 import com.in6k.mypal.domain.User;
 import com.in6k.mypal.service.Inviter;
 import com.in6k.mypal.service.TransactionValidator;
+import com.in6k.mypal.service.UserInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,14 +25,18 @@ public class TransactionController {
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String creationForm(ModelMap model, HttpServletRequest request) {
-        HttpSession session = request.getSession();
+        /*HttpSession session = request.getSession();
 
         User userSession = (User) session.getAttribute("LoggedUser");
         if (userSession == null) {
             return "redirect:/login";
         }
         model.addAttribute("sess", userSession);
-        model.addAttribute("balance", UserDao.getBalance(userSession));
+        model.addAttribute("balance", UserDao.getBalance(userSession));*/
+        UserInfo.isLogged(request, model);
+        if (model.isEmpty()) {
+            return "redirect:/login";
+        }
 
         Collection<User> users = UserDao.list();
         model.addAttribute("users", users);
