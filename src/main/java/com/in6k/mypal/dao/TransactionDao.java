@@ -3,8 +3,8 @@ package com.in6k.mypal.dao;
 import com.in6k.mypal.domain.Transaction;
 import com.in6k.mypal.domain.User;
 import com.in6k.mypal.util.HibernateUtil;
-import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Expression;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -12,23 +12,28 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionDAO {
+public class TransactionDao {
 
     public static List<Transaction> findAllForUser(User user) {
+//        Session session = HibernateUtil.getSessionFactory().openSession();
+//        session.beginTransaction();
+//
+//        Query query = session.createSQLQuery("SELECT * FROM transactions WHERE debit_id = ? OR credit_id = ?;");
+//        int userId = user.getId();
+//        query.setInteger(0, userId);
+//        query.setInteger(1, userId);
+//        List<Transaction> result = query.list();
+//
+//        session.getTransaction().commit();
+//
+//        if (session != null && session.isOpen()) {
+//            session.close();
+//        }
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-
-        Query query = session.createSQLQuery("SELECT * FROM transactions WHERE debit_id = ? OR credit_id = ?;");
-        int userId = user.getId();
-        query.setInteger(0, userId);
-        query.setInteger(1, userId);
-        List<Transaction> result = query.list();
-
+        List<Transaction> result = session.createCriteria(Transaction.class).add(Expression.or(Expression.like("debit", user), Expression.like("credit", user))).list();
         session.getTransaction().commit();
-
-        if (session != null && session.isOpen()) {
-            session.close();
-        }
+        session.close();
         return result;
     }
 

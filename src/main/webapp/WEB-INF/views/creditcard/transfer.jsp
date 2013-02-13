@@ -1,16 +1,21 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: employee
-  Date: 13.02.13
-  Time: 9:36
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <title></title>
 </head>
 <body>
+
+    <c:if test="${validateCardInfo != null }">
+        <c:forEach var="transaction" items="${validateCardInfo}">
+            <tr>
+                <td>${transaction}</td>
+
+            </tr>
+        </c:forEach>
+    </c:if>
+
     <form  method="post" action="/transaction/create/debitedtothecard">
     <h2>Payment details</h2>
         <input type="radio" name="cardType" value="mastercard">Mastercard<br>

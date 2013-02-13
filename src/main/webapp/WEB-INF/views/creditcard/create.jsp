@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
 <head>
@@ -9,7 +8,13 @@
 </head>
 <body>
     <c:if test="${validateCardInfo != null }">
-        <h1>Error!</h1>
+        <c:forEach var="transaction" items="${validateCardInfo}">
+            <tr>
+                <td>${transaction}</td>
+
+            </tr>
+        </c:forEach>
+
     </c:if>
     <form  method="post" action="/transaction/create/creditfromcard">
         <h2>Payment details</h2>

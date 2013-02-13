@@ -18,9 +18,9 @@
 
     <p><a href="login.jsp" class="btn btn-primary btn-large">Log-in &raquo;</a></p>
 
-    <p>Still dont have an account?</p>
+    <p>Still don't have an account?</p>
 
-    <p><a href="register.jsp" class="btn btn-primary btn-large">Register &raquo;</a></p>
+    <p><a href="/registration" class="btn btn-primary btn-large">Registration</a></p>
 
 </div>
 

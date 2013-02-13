@@ -1,15 +1,9 @@
 package com.in6k.mypal.service.CreditCard;
 
-import com.in6k.mypal.dao.TransactionDAO;
 import com.in6k.mypal.dao.UserDao;
+import com.in6k.mypal.dao.TransactionDao;
 import com.in6k.mypal.domain.Transaction;
-import com.in6k.mypal.domain.User;
-import com.in6k.mypal.util.HibernateUtil;
-import org.hibernate.Session;
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class IncreaseBalanсe {
 
@@ -29,7 +23,7 @@ public class IncreaseBalanсe {
             transaction.setDesription(cardNumber);
 
             try {
-                TransactionDAO.create(transaction);
+                TransactionDao.create(transaction);
 
             } catch (IOException e) {
                 e.printStackTrace();
