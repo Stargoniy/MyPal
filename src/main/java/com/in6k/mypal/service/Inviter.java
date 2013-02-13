@@ -9,8 +9,8 @@ public class Inviter {
 
     public static void sendEmail(String name, String email, double sum) {
 
-        final String username = "Heavyck@gmail.com";
-        final String password = "kujhj.ol";
+        final String username = "ivanovichivan760@gmail.com";
+        final String password = "AdminController";
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -28,9 +28,9 @@ public class Inviter {
         try {
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("Heavyck@gmail.com"));
+            message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse("Heavyck@mail.ru"));
+                    InternetAddress.parse(email));
             message.setSubject("In6k PayPal");
             message.setText("Dear Friend,"
                     + "\n\n Mr." + name + " send to you " + sum + "$, please, create an account in our PayPal system! \n" +
