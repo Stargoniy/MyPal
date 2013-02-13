@@ -61,7 +61,7 @@ public class SecurityController {
 
         User user = UserDao.getByEmail(email);
 
-        if (UserDao.getByEmail(email) != null && user.getPassword().equals(SecurityUtil.passwordDecoder(password))) {
+        if (UserDao.getByEmail(email) != null && user.getPassword().equals(SecurityUtil.passwordEncoder(password))) {
             session.setAttribute("LoggedUser", user);
         }
         else {

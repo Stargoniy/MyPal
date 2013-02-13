@@ -1,5 +1,7 @@
 package com.in6k.mypal.domain;
 
+import com.in6k.mypal.util.SecurityUtil;
+
 import javax.persistence.*;
 
 @Entity
@@ -55,7 +57,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = SecurityUtil.passwordEncoder(password);
     }
 
     @Column(name = "active")
