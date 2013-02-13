@@ -6,13 +6,22 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class LoginForm {
-
-    @Email
-    @NotNull
     private String email;
-
-    @Size(min = 5, max = 25)
+    private User user;
     private String password;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public LoginForm(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 
     public String getEmail() {
         return email;
@@ -28,5 +37,11 @@ public class LoginForm {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isPasswordMatch() {
+        user = UserDao.getByEmail(email);
+        boolean isMatch = (user != null && user.getPassword().equals(SecurityUtil.passwordEncoder(password))) ? true : false;
+        return isMatch;
     }
 }
