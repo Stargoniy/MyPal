@@ -57,7 +57,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = SecurityUtil.passwordEncoder(password);
+        this.password = password;
     }
 
     @Column(name = "active")

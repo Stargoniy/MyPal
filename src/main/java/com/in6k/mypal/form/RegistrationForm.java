@@ -1,5 +1,6 @@
 package com.in6k.mypal.form;
 
+import com.in6k.mypal.util.SecurityUtil;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -62,7 +63,7 @@ public class RegistrationForm {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = SecurityUtil.passwordEncoder(password);
     }
 
     public String getConfirm() {
