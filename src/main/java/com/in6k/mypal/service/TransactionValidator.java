@@ -80,9 +80,9 @@ public class TransactionValidator {
             result.add("credit");
         }
 
-        if(!isDebitValid()) {
-            result.add("debit");
-        }
+//        if(!isDebitValid()) {
+//            result.add("debit");
+//        }
 
         return result;
     }
