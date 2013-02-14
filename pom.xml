@@ -116,6 +116,15 @@
           <version>1.2</version>
       </dependency>
 
+      <!--Mail Test-->
+
+      <dependency>
+          <groupId>org.subethamail</groupId>
+          <artifactId>subethasmtp-wiser</artifactId>
+          <version>1.2</version>
+      </dependency>
+
+
   </dependencies>
 
     <repositories>

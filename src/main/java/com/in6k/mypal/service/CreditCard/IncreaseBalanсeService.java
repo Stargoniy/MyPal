@@ -17,9 +17,9 @@ public class IncreaseBalanсeService {
         if (null != UserDao.getById(id)){
             if (fromCard) {
                 transaction.setDebit(UserDao.getById(id));
-                transaction.setCredit(saveUserFromVreditCard(cardNumber));
+                transaction.setCredit(UserDao.getById(-1));
             } else {
-                transaction.setDebit(saveUserFromVreditCard(cardNumber));
+                transaction.setDebit(UserDao.getById(-2));
                 transaction.setCredit(UserDao.getById(id));
             }
             transaction.setSum(Double.parseDouble(sum));
@@ -33,7 +33,7 @@ public class IncreaseBalanсeService {
         }
     }
     
-    private static User saveUserFromVreditCard(String cardNumber){
+    /*private static User saveUserFromVreditCard(String cardNumber){
 
         User result = UserDao.getByEmail(cardNumber);
 
@@ -51,6 +51,6 @@ public class IncreaseBalanсeService {
 
         return UserDao.getByEmail(user.getEmail());
 
-    }
+    }*/
 
 }
