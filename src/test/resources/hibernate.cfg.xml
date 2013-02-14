@@ -29,7 +29,6 @@
         <!-- Names the annotated entity class -->
         <mapping class="com.in6k.mypal.domain.User" />
         <mapping class="com.in6k.mypal.domain.Transaction" />
-        <!--<mapping resource="entity/Account.hbm.xml"/>-->
 
     </session-factory>
 
