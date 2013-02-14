@@ -63,7 +63,7 @@ public class SecurityController {
             if(isAdmin) {
                 session.setAttribute("Admin", loginForm.getUser());
                 session.setAttribute("LoggedUser", null);
-                return "/admin/page";
+                return "redirect:/admin/page";
             }
         }
         else {
