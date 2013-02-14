@@ -12,9 +12,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class TransactionServiceTest {
     @Before
@@ -87,5 +85,34 @@ public class TransactionServiceTest {
         assertEquals(TransactionDao.findAllForUser(creditUser).get(1).getId(), transaction.getId());
         assertEquals(90.0, UserDao.getBalance(creditUser));
         assertEquals(10.0, UserDao.getBalance(debitUser));
+    }
+
+    @Test
+    public void shouldNotCreateTransactionIfUserDontHaveEnoughMoney() {
+        User creditUser = new User();
+        creditUser.setEmail("credit@example.com");
+        creditUser.setFirstName("CreditName");
+        creditUser.setLastName("CreditLastName");
+        creditUser.setPassword(SecurityUtil.passwordEncoder("secret"));
+        creditUser.setActive(true);
+
+        UserDao.save(creditUser);
+
+        User debitUser = new User();
+        String debitUserEmail = "debit@example.com";
+        debitUser.setEmail(debitUserEmail);
+        debitUser.setFirstName("DebitName");
+        debitUser.setLastName("DebitLastName");
+        debitUser.setPassword(SecurityUtil.passwordEncoder("secret"));
+        debitUser.setActive(true);
+        UserDao.save(debitUser);
+
+        try {
+            TransactionService.create(creditUser, debitUserEmail, "200");
+        } catch (IOException e) {
+            fail();
+        }
+
+        assertEquals(0, TransactionDao.findAllForUser(creditUser).size());
     }
 }

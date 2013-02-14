@@ -108,4 +108,15 @@ public class TransactionDao {
         return transaction;
     }
 
+    public static void update(Transaction transaction) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.update(transaction);
+        session.getTransaction().commit();
+
+        if (session != null && session.isOpen()) {
+            session.close();
+        }
+    }
+
 }

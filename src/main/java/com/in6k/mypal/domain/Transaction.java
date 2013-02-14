@@ -9,6 +9,7 @@ public class Transaction {
     private User debit;
     private User credit;
     private double sum;
+    private boolean status;
 
     @Id
     @GeneratedValue
@@ -47,5 +48,14 @@ public class Transaction {
 
     public void setSum(double sum) {
         this.sum = sum;
+    }
+
+    @Column(name = "status")
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }
