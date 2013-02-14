@@ -99,5 +99,16 @@ public class UserDao {
         return result;
     }
 
+    public static void update(User user) {
+        Session session = null;
+
+        session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+
+        session.update(user);
+
+        tx.commit();
+        session.close();
+    }
 }
 
