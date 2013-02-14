@@ -19,6 +19,8 @@ import java.sql.SQLException;
 @Controller
 public class AdminController {
 
+    private boolean isAdminLogged;
+
     @Autowired
     private AdminService adminService;
 
@@ -31,7 +33,7 @@ public class AdminController {
     public String showAdminPage(HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        boolean isAdminLogged = session.getAttribute("Admin") != null;
+        isAdminLogged = session.getAttribute("Admin") != null;
 
         if (isAdminLogged) {
             return "/admin/admin";
@@ -43,9 +45,12 @@ public class AdminController {
     @RequestMapping("/users")
     public String showRegistredUsers(ModelMap model) {
 
+        if (isAdminLogged) {
         model.addAttribute("userlist", UserDao.list());
 
         return "/user/list";
+        }
+        return "/security/login";
     }
 
     @RequestMapping(value = "/user/ban/{id}", method = RequestMethod.GET)
