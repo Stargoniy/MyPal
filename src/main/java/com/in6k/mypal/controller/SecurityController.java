@@ -60,6 +60,7 @@ public class SecurityController {
         }
         else {
             model.addAttribute("error", "Wrong password for this user");
+            model.addAttribute("email", email);
             return "security/login";
         }
 

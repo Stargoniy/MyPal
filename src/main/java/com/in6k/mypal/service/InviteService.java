@@ -5,7 +5,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
-public class Inviter {
+public class InviteService {
 
     public static void sendEmail(String name, String email, double sum) {
 
