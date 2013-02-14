@@ -42,7 +42,8 @@
     <form method="post" action="/login" class="form-signin" >
         <h2>Sign in</h2>
 
-        <input type="text" name="email" class="input-block-level" placeholder="Email" />
+        <input type="text" name="email" class="input-block-level" placeholder="Email" value="${email}"/>
+        <span class="error">${error}</span>
         <input type="password" name="password" class="input-block-level" placeholder="Password" />
 
         <input class="btn btn-large btn-primary" type="submit" value="Log in" />

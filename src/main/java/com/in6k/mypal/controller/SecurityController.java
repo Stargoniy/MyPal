@@ -50,17 +50,25 @@ public class SecurityController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String logIn(@RequestParam("email") String email, @RequestParam("password") String password, Model model,
-                        HttpServletRequest request) {
+    public String logIn(@RequestParam("email") String email, @RequestParam("password") String password, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
 
         LoginForm loginForm = new LoginForm(email, password);
 
-        if (loginForm.isPasswordMatch()) {
+        if (loginForm.isUser()) {
             session.setAttribute("LoggedUser", loginForm.getUser());
+
+            boolean isAdmin = loginForm.isAdmin();
+
+            if(isAdmin) {
+                session.setAttribute("Admin", loginForm.getUser());
+                session.setAttribute("LoggedUser", null);
+                return "/admin/page";
+            }
         }
         else {
             model.addAttribute("error", "Wrong password for this user");
+            model.addAttribute("email", email);
             return "security/login";
         }
 
@@ -71,6 +79,7 @@ public class SecurityController {
     public String logOut(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute("LoggedUser", null);
+
         return "redirect:/login";
     }
 }

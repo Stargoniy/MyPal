@@ -2,13 +2,11 @@ package com.in6k.mypal.controller;
 
 import com.in6k.mypal.dao.TransactionDao;
 import com.in6k.mypal.dao.UserDao;
-import com.in6k.mypal.domain.Transaction;
 import com.in6k.mypal.domain.User;
 import com.in6k.mypal.service.CreditCard.IncreaseBalanсeService;
 import com.in6k.mypal.service.CreditCard.ValidCreditCardService;
-import com.in6k.mypal.service.Inviter;
 import com.in6k.mypal.service.SessionValidService;
-import com.in6k.mypal.service.TransactionValidator;
+import com.in6k.mypal.service.TransactionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,32 +40,8 @@ public class TransactionController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(HttpServletRequest request) throws IOException {
-        TransactionValidator transactionValidator = new TransactionValidator();
-
         HttpSession session = request.getSession();
-
-        User userSession = (User) session.getAttribute("LoggedUser");
-
-        transactionValidator.setCredit(userSession);
-
-        User debitUser = UserDao.getByEmail(request.getParameter("debit"));
-        transactionValidator.setDebit(debitUser);
-        transactionValidator.setInputSum(request.getParameter("sum"));
-
-        if (UserDao.getBalance(userSession) > Double.parseDouble(request.getParameter("sum")) && debitUser == null) {
-            Inviter.sendEmail(userSession.getFirstName(), request.getParameter("debit"), Integer.parseInt(request.getParameter("sum")));
-        }
-
-        if (transactionValidator.validate().size() == 0) {
-            Transaction transaction = new Transaction();
-            transaction.setDebit(transactionValidator.getDebit());
-            transaction.setCredit(transactionValidator.getCredit());
-            transaction.setSum(transactionValidator.getSum());
-
-            TransactionDao.create(transaction);
-
-            return "redirect:/transaction/create";
-        }
+        TransactionService.create((User) session.getAttribute("LoggedUser"), request.getParameter("debit"), request.getParameter("sum"));
         return "redirect:/transaction/create";
     }
 

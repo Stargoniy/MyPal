@@ -1,23 +1,31 @@
 package com.in6k.mypal.controller;
 
-import com.in6k.mypal.dao.UserDao;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class AdminController {
 
-    @RequestMapping("/users")
-    public String showRegistredUsers(ModelMap model) {
-
-        model.addAttribute("userlist", UserDao.list());
-
-        return "/user/list";
+    @RequestMapping("/admin")
+    public String adminLogged(ModelMap model) {
+        return "/security/login";
     }
 
-    @RequestMapping("/user/ban")
-    public  void BanUser(int id) {
+    @RequestMapping("/page")
+    public String showAdminPage(HttpServletRequest request) {
+        HttpSession session = request.getSession();
 
+        boolean isAdminLogged = session.getAttribute("Admin") != null;
+
+        if (isAdminLogged) {
+            return "/admin/page";
+        }
+
+        return "/security/login";
     }
 }
