@@ -9,7 +9,7 @@ public class SecurityUtil {
         StringBuffer  hexString = new StringBuffer();
 
         try {
-            md5 = MessageDigest.getInstance("md5");
+            md5 = MessageDigest.getInstance("SHA-256");
         } catch (Exception e) { }
 
         md5.reset();
