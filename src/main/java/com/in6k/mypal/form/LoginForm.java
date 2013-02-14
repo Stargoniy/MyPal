@@ -1,9 +1,8 @@
 package com.in6k.mypal.form;
 
-import org.hibernate.validator.constraints.Email;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import com.in6k.mypal.dao.UserDao;
+import com.in6k.mypal.domain.User;
+import com.in6k.mypal.util.SecurityUtil;
 
 public class LoginForm {
     private String email;

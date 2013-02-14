@@ -4,14 +4,11 @@ import com.in6k.mypal.dao.TransactionDao;
 import com.in6k.mypal.dao.UserDao;
 import com.in6k.mypal.domain.Transaction;
 import com.in6k.mypal.domain.User;
-
 import com.in6k.mypal.service.CreditCard.IncreaseBalanсe;
 import com.in6k.mypal.service.CreditCard.ValidCreditCard;
 import com.in6k.mypal.service.Inviter;
-
 import com.in6k.mypal.service.SessionValidService;
 import com.in6k.mypal.service.TransactionValidator;
-import com.in6k.mypal.service.UserInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.List;
 
 @Controller

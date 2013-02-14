@@ -1,7 +1,5 @@
 package com.in6k.mypal.domain;
 
-import com.in6k.mypal.util.SecurityUtil;
-
 import javax.persistence.*;
 
 @Entity

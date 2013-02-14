@@ -1,8 +1,9 @@
 package com.in6k.mypal.service.CreditCard;
 
-import com.in6k.mypal.dao.UserDao;
 import com.in6k.mypal.dao.TransactionDao;
+import com.in6k.mypal.dao.UserDao;
 import com.in6k.mypal.domain.Transaction;
+
 import java.io.IOException;
 
 public class IncreaseBalanсe {
