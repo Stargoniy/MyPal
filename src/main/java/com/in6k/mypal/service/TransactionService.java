@@ -8,11 +8,12 @@ import com.in6k.mypal.domain.User;
 import java.io.IOException;
 
 public class TransactionService {
-    public static void create(User creditUser, User debitUser, String inputSum) throws IOException {
+    public static void create(User creditUser, String debitUserEmail, String inputSum) throws IOException {
+        User debitUser = UserDao.getByEmail(debitUserEmail);
         double sum = validateSum(creditUser, inputSum);
         if (sum != 0) {
             if (debitUser == null) {
-                InviteService.sendEmail(creditUser.getFirstName(), debitUser.getEmail(), sum);
+                InviteService.sendEmail(creditUser.getFirstName(), debitUserEmail, sum);
             } else {
                 Transaction transaction = new Transaction();
                 transaction.setDebit(debitUser);
