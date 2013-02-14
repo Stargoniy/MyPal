@@ -12,7 +12,7 @@ public class TransactionService {
         double sum = validateSum(creditUser, inputSum);
         if (sum != 0) {
             if (debitUser == null) {
-                Inviter.sendEmail(creditUser.getFirstName(), debitUser.getEmail(), sum);
+                InviteService.sendEmail(creditUser.getFirstName(), debitUser.getEmail(), sum);
             } else {
                 Transaction transaction = new Transaction();
                 transaction.setDebit(debitUser);
