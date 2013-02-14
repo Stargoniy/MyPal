@@ -12,9 +12,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class TransactionServiceTest {
     @Before
@@ -87,5 +85,30 @@ public class TransactionServiceTest {
         assertEquals(TransactionDao.findAllForUser(creditUser).get(1).getId(), transaction.getId());
         assertEquals(90.0, UserDao.getBalance(creditUser));
         assertEquals(10.0, UserDao.getBalance(debitUser));
+    }
+
+    @Test
+    public void shouldNotCreateTransactionIfUserDontHaveEnoughMoney() {
+        User creditUser = new User();
+        creditUser.setEmail("credit@example.com");
+        creditUser.setFirstName("CreditName");
+        creditUser.setLastName("CreditLastName");
+        creditUser.setPassword(SecurityUtil.passwordEncoder("secret"));
+        creditUser.setActive(true);
+
+        UserDao.save(creditUser);
+
+        IncreaseBalanсeService.moneyFromCreditCard("5105105105105100", "100", creditUser.getId(), true);
+
+        String debitUserEmail = "debit@example.com";
+
+        try {
+            TransactionService.create(creditUser, debitUserEmail, "200");
+        } catch (IOException e) {
+            fail();
+        }
+
+        Transaction transaction = TransactionDao.findAllForUser(creditUser).get(0);
+        assertNull(TransactionDao.findAllForUser(creditUser).get(0));
     }
 }
