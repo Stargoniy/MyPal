@@ -16,5 +16,7 @@ public class TransactionServiceTest {
 
         UserDao.save(creditUser);
         User debitUser = new User();
+
+        String debitUserEmail = "debit@gmail.com";
     }
 }
