@@ -43,4 +43,8 @@ public class LoginForm {
         boolean isMatch = (user != null && user.getPassword().equals(SecurityUtil.passwordEncoder(password))) ? true : false;
         return isMatch;
     }
+
+    public boolean isAdmin() {
+        return this.user.getId() == 0;
+    }
 }

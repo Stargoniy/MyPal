@@ -58,10 +58,12 @@ public class SecurityController {
         if (loginForm.isPasswordMatch()) {
             session.setAttribute("LoggedUser", loginForm.getUser());
 
-            boolean isAdmin = loginForm.getUser().getId() == 0;
+            boolean isAdmin = loginForm.isAdmin();
 
             if(isAdmin) {
                 session.setAttribute("Admin", loginForm.getUser());
+                session.setAttribute("LoggedUser", null);
+                return "/admin/page";
             }
         }
         else {
@@ -69,7 +71,7 @@ public class SecurityController {
             model.addAttribute("email", email);
             return "security/login";
         }
-        System.out.println(request.getSession().getAttribute("Admin"));
+
         return "redirect:/transaction/create";
     }
 

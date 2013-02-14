@@ -4,8 +4,8 @@ import com.in6k.mypal.dao.TransactionDao;
 import com.in6k.mypal.dao.UserDao;
 import com.in6k.mypal.domain.Transaction;
 import com.in6k.mypal.domain.User;
-import com.in6k.mypal.service.Inviter;
-import org.hibernate.Session;
+
+import com.in6k.mypal.service.InviteService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,7 +49,7 @@ public class FundsTransfer {
             transaction.setSum(Double.parseDouble(request.getParameter("transfer_value")));
             TransactionDao.create(transaction);
 
-            Inviter.sendEmail(currentUser.getFirstName() + " " + currentUser.getLastName(), user.getEmail(), transaction.getSum());
+            InviteService.sendEmail(currentUser.getFirstName() + " " + currentUser.getLastName(), user.getEmail(), transaction.getSum());
             return "founds_transfer/foundsTransfer";
         }
 
