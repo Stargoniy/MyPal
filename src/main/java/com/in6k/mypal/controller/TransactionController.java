@@ -93,6 +93,7 @@ public class TransactionController {
 
         if ((validateCardInfo.size()>0)){
             model.addAttribute("validateCardInfo", validateCardInfo);
+            userInfoForView(model, session);
             return "creditcard/create";
         }
 
@@ -100,6 +101,7 @@ public class TransactionController {
 
         IncreaseBalanсeService.moneyFromCreditCard(cardNumber, sum, SessionValidService.ValidUser(session).getId(), fromCard);
 
+        userInfoForView(model, session);
         return "creditcard/create";
     }
 
@@ -108,9 +110,11 @@ public class TransactionController {
         HttpSession session = request.getSession();
 
         if (SessionValidService.ValidUser(session) == null) {
+            userInfoForView(model, session);
             return "redirect:/login";
         }
 
+        userInfoForView(model, session);
         return "creditcard/create";
     }
 
@@ -119,9 +123,11 @@ public class TransactionController {
         HttpSession session = request.getSession();
 
         if (SessionValidService.ValidUser(session) == null) {
+            userInfoForView(model, session);
             return "redirect:/login";
         }
 
+        userInfoForView(model, session);
         return "creditcard/transfer";
     }
 
@@ -135,6 +141,7 @@ public class TransactionController {
 
         if ((validateCardInfo.size()>0)){
             model.addAttribute("validateCardInfo", validateCardInfo);
+            userInfoForView(model, session);
             return "creditcard/transfer";
         }
 
@@ -142,6 +149,13 @@ public class TransactionController {
 
         IncreaseBalanсeService.moneyFromCreditCard(cardNumber, sum, SessionValidService.ValidUser(session).getId(), fromCard);
 
+        userInfoForView(model, session);
         return "creditcard/transfer";
+    }
+
+    private void userInfoForView(ModelMap model, HttpSession session) {
+        User userSession = (User) session.getAttribute("LoggedUser");
+        model.addAttribute("sess", userSession);
+        model.addAttribute("balance", UserDao.getBalance(userSession));
     }
 }
