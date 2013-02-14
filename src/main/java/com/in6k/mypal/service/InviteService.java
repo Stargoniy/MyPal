@@ -41,7 +41,7 @@ public class InviteService {
             System.out.println("Done");
 
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 

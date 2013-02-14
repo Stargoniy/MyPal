@@ -28,8 +28,8 @@ public class TransactionController {
         HttpSession session = request.getSession();
 
         User userSession = (User) session.getAttribute("LoggedUser");
-        if (null == userSession) {
-            return "redirect:/login";
+        if (null == userSession || userSession.getActive() == false) {
+            return "security/accessdenied";
         }
 
         model.addAttribute("sess", userSession);
@@ -50,36 +50,14 @@ public class TransactionController {
         HttpSession session = request.getSession();
 
         User userSession = (User) session.getAttribute("LoggedUser");
-        if (userSession == null) {
-            return "redirect:/login";
+        if (userSession == null || userSession.getActive() == false) {
+            return "security/accessdenied";
         }
         model.addAttribute("sess", userSession);
         model.addAttribute("balance", UserDao.getBalance(userSession));
         model.addAttribute("transactions", TransactionDao.findAllForUser(userSession));
 
-        return "transaction/list";
-    }
-
-    @RequestMapping(value = "/list")
-    public String list(ModelMap model, HttpServletRequest request) throws IOException, SQLException {
-        HttpSession session = request.getSession();
-
-        User userSession = (User) session.getAttribute("LoggedUser");
-        if (userSession == null) {
-            return "redirect:/login";
-        }
-        model.addAttribute("sess", userSession);
-        //model.addAttribute("transactions", TransactionDao.list());
-        model.addAttribute("transactions", TransactionDao.list());
-
-        return "transaction/list";
-    }
-
-    @RequestMapping(value = "/delete")
-    public String delete(@RequestParam("id") int id) throws SQLException {
-
-        TransactionDao.delete(id);
-        return "transaction/list";
+        return "transaction/history";
     }
 
     @RequestMapping(value = "/create/creditfromcard", method = RequestMethod.POST)
@@ -109,9 +87,9 @@ public class TransactionController {
     public String creationFormDebetFromCard(HttpServletRequest request, ModelMap model){
         HttpSession session = request.getSession();
 
-        if (SessionValidService.ValidUser(session) == null) {
+        if (SessionValidService.ValidUser(session) == null || SessionValidService.ValidUser(session).getActive() == false) {
             userInfoForView(model, session);
-            return "redirect:/login";
+            return "security/accessdenied";
         }
 
         userInfoForView(model, session);
@@ -122,9 +100,9 @@ public class TransactionController {
     public String creationDebitedToTheCard(HttpServletRequest request, ModelMap model){
         HttpSession session = request.getSession();
 
-        if (SessionValidService.ValidUser(session) == null) {
+        if (SessionValidService.ValidUser(session) == null || SessionValidService.ValidUser(session).getActive() == false) {
             userInfoForView(model, session);
-            return "redirect:/login";
+            return "security/accessdenied";
         }
 
         userInfoForView(model, session);
