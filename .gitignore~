@@ -1,5 +1,4 @@
 target/*
-MyPal.git
 .idea
 *.iml
 *.class

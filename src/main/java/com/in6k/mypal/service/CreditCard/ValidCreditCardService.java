@@ -3,7 +3,7 @@ package com.in6k.mypal.service.CreditCard;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ValidCreditCard {
+public class ValidCreditCardService {
     private final static String VALID_SUM = "[-+]?(?:\\b[0-9]+(?:\\.[0-9]*)?|\\.[0-9]+\\b)(?:[eE][-+]?[0-9]+\\b)?";
 
     private boolean isSumValid(String sum) {

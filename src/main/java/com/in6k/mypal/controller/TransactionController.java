@@ -4,8 +4,8 @@ import com.in6k.mypal.dao.TransactionDao;
 import com.in6k.mypal.dao.UserDao;
 import com.in6k.mypal.domain.Transaction;
 import com.in6k.mypal.domain.User;
-import com.in6k.mypal.service.CreditCard.IncreaseBalanсe;
-import com.in6k.mypal.service.CreditCard.ValidCreditCard;
+import com.in6k.mypal.service.CreditCard.IncreaseBalanсeService;
+import com.in6k.mypal.service.CreditCard.ValidCreditCardService;
 import com.in6k.mypal.service.Inviter;
 import com.in6k.mypal.service.SessionValidService;
 import com.in6k.mypal.service.TransactionValidator;
@@ -115,7 +115,7 @@ public class TransactionController {
                                                  @RequestParam("cvv") String cvv, @RequestParam("id_Account") int id,
                                                  ModelMap model) throws IOException {
         HttpSession session = request.getSession();
-        ValidCreditCard isValidCard = new ValidCreditCard();
+        ValidCreditCardService isValidCard = new ValidCreditCardService();
         List validateCardInfo = isValidCard.validateCardInfo(cardNumber, sum);
 
         if ((validateCardInfo.size()>0)){
@@ -125,7 +125,7 @@ public class TransactionController {
 
         boolean fromCard = true;
 
-        IncreaseBalanсe.moneyFromCreditCard(cardNumber, sum, SessionValidService.ValidUser(session).getId(), fromCard);
+        IncreaseBalanсeService.moneyFromCreditCard(cardNumber, sum, SessionValidService.ValidUser(session).getId(), fromCard);
 
         return "creditcard/create";
     }
@@ -158,7 +158,7 @@ public class TransactionController {
                                                     @RequestParam("sum") String sum,
                                                     @RequestParam("id_Account") int id, ModelMap model){
         HttpSession session = request.getSession();
-        ValidCreditCard isValidCard = new ValidCreditCard();
+        ValidCreditCardService isValidCard = new ValidCreditCardService();
         List validateCardInfo = isValidCard.validateCardInfo(cardNumber, sum);
 
         if ((validateCardInfo.size()>0)){
@@ -168,7 +168,7 @@ public class TransactionController {
 
         boolean fromCard = false;
 
-        IncreaseBalanсe.moneyFromCreditCard(cardNumber, sum, SessionValidService.ValidUser(session).getId(), fromCard);
+        IncreaseBalanсeService.moneyFromCreditCard(cardNumber, sum, SessionValidService.ValidUser(session).getId(), fromCard);
 
         return "creditcard/transfer";
     }

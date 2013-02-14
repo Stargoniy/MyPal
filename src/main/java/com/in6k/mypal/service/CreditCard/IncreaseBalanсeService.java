@@ -6,7 +6,7 @@ import com.in6k.mypal.domain.Transaction;
 
 import java.io.IOException;
 
-public class IncreaseBalanсe {
+public class IncreaseBalanсeService {
 
     public static void moneyFromCreditCard(String cardNumber, String sum, int id, boolean fromCard){
 
