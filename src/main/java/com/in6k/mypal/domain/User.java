@@ -11,6 +11,7 @@ public class User {
     private String email;
     private String password;
     private boolean active;
+    private boolean system;
 
     @Id
     @GeneratedValue
@@ -65,5 +66,14 @@ public class User {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    @Column(name = "system")
+    public boolean isSystem() {
+        return system;
+    }
+
+    public void setSystem(boolean system) {
+        this.system = system;
     }
 }

@@ -56,7 +56,7 @@ public class SecurityController {
 
         LoginForm loginForm = new LoginForm(email, password);
 
-        if (loginForm.isPasswordMatch()) {
+        if (loginForm.isUser()) {
             session.setAttribute("LoggedUser", loginForm.getUser());
         }
         else {
@@ -72,6 +72,7 @@ public class SecurityController {
     public String logOut(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute("LoggedUser", null);
+
         return "redirect:/login";
     }
 }
