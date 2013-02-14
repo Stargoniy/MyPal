@@ -1,6 +1,5 @@
 package com.in6k.mypal.service;
 
-import com.in6k.mypal.dao.CommonDao;
 import com.in6k.mypal.dao.UserDao;
 import com.in6k.mypal.domain.User;
 import org.junit.Test;
@@ -8,8 +7,6 @@ import org.junit.Test;
 public class TransactionServiceTest {
     @Test
     public void shouldCreateTransactionIfUserExistAndCreditUserHaveMoney() {
-//        CommonDao
-
         User creditUser = new User();
         creditUser.setEmail("credit@gmail.com");
         creditUser.setFirstName("CreditName");
