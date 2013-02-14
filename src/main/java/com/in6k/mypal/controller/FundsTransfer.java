@@ -5,11 +5,13 @@ import com.in6k.mypal.dao.UserDao;
 import com.in6k.mypal.domain.Transaction;
 import com.in6k.mypal.domain.User;
 import com.in6k.mypal.service.Inviter;
+import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Controller
@@ -23,9 +25,10 @@ public class FundsTransfer {
 
     @RequestMapping(value = "/transfer/add", method = RequestMethod.POST)
     public String addTransfer(HttpServletRequest request) throws IOException {
+        HttpSession session = request.getSession();
+        User currentUser = (User) session.getAttribute("LoggedUser");
 
         User userByEmail = UserDao.getByEmail(request.getParameter("email"));
-        User currentUser = UserDao.getByEmail("system@gmail.com");
 
         Transaction transaction = new Transaction();
 

@@ -50,8 +50,7 @@ public class SecurityController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String logIn(@RequestParam("email") String email, @RequestParam("password") String password, Model model,
-                        HttpServletRequest request) {
+    public String logIn(@RequestParam("email") String email, @RequestParam("password") String password, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
 
         LoginForm loginForm = new LoginForm(email, password);
