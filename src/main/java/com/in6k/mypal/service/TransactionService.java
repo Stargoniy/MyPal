@@ -13,17 +13,28 @@ public class TransactionService {
     public static void create(User creditUser, String debitUserEmail, String inputSum) throws IOException {
         User debitUser = UserDao.getByEmail(debitUserEmail);
         double sum = validateSum(creditUser, inputSum);
+
+        Transaction transaction = new Transaction();
+
         if (sum != 0 && isEmailValid(debitUserEmail)) {
             if (debitUser == null) {
                 InviteService.sendEmail(creditUser.getFirstName(), debitUserEmail, sum);
-            } else {
-                Transaction transaction = new Transaction();
-                transaction.setDebit(debitUser);
-                transaction.setCredit(creditUser);
-                transaction.setSum(sum);
 
-                TransactionDao.create(transaction);
+                User newUser = new User();
+                newUser.setEmail(debitUserEmail);
+                newUser.setFirstName("inactive");
+                newUser.setLastName("inactive");
+                newUser.setPassword("inactive");
+                newUser.setActive(false);
+
+                UserDao.save(newUser);
+                transaction.setDebit(newUser);
             }
+            transaction.setDebit(debitUser);
+            transaction.setCredit(creditUser);
+            transaction.setSum(sum);
+
+            TransactionDao.create(transaction);
         }
     }
 

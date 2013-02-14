@@ -107,6 +107,14 @@
           <artifactId>junit</artifactId>
           <version>4.0</version>
       </dependency>
+      
+       <!--Mail Test-->
+
+      <dependency>
+          <groupId>org.subethamail</groupId>
+          <artifactId>subethasmtp-wiser</artifactId>
+          <version>1.2</version>
+      </dependency>
 
   </dependencies>
 
