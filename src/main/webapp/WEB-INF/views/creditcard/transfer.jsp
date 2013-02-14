@@ -26,13 +26,7 @@
         </li>
     </ul>
 
-    <form class="form-horizontal" method="post" action="/transaction/create/creditfromcard">
-        <div class="control-group">
-            <label class="control-label" for="id_user">AccountID</label>
-            <div class="controls">
-                <input type="text" id="id_user" name = "id_Account" placeholder="AccountID">
-            </div>
-        </div>
+    <form class="form-horizontal" method="post" action="/transaction/create/debitedtothecard">
         <div class="control-group">
             <label class="control-label" for="card_number">Card number</label>
             <div class="controls">

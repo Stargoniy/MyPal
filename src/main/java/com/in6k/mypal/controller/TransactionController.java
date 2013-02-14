@@ -112,16 +112,15 @@ public class TransactionController {
     public String createTransactionDebetFromCard(HttpServletRequest request,
                                                  @RequestParam("card_number") String cardNumber, @RequestParam("expiry_date") String expiryDate,
                                                  @RequestParam("name_on_card") String nameOnCard, @RequestParam("sum") String sum,
-                                                 @RequestParam("cvv") String cvv, @RequestParam("id_Account") int id,
-                                                 ModelMap model) throws IOException {
+                                                 @RequestParam("cvv") String cvv, ModelMap model) throws IOException {
         HttpSession session = request.getSession();
-        ValidCreditCardService isValidCard = new ValidCreditCardService();
+        /*ValidCreditCardService isValidCard = new ValidCreditCardService();
         List validateCardInfo = isValidCard.validateCardInfo(cardNumber, sum);
 
         if ((validateCardInfo.size()>0)){
             model.addAttribute("validateCardInfo", validateCardInfo);
             return "creditcard/create";
-        }
+        }*/
 
         boolean fromCard = true;
 
@@ -155,8 +154,7 @@ public class TransactionController {
     @RequestMapping(value = "/create/debitedtothecard", method = RequestMethod.POST)
     public String createTransactionDebitedToTheCard(HttpServletRequest request,
                                                     @RequestParam("card_number") String cardNumber,
-                                                    @RequestParam("sum") String sum,
-                                                    @RequestParam("id_Account") int id, ModelMap model){
+                                                    @RequestParam("sum") String sum, ModelMap model){
         HttpSession session = request.getSession();
         ValidCreditCardService isValidCard = new ValidCreditCardService();
         List validateCardInfo = isValidCard.validateCardInfo(cardNumber, sum);
