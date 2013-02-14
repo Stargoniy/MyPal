@@ -18,6 +18,7 @@ public class TransactionService {
 
         if (sum != 0 && isEmailValid(debitUserEmail)) {
             if (debitUser == null) {
+                InviteService.sendEmail(creditUser.getFirstName(), debitUserEmail, sum);
 
                 User newUser = new User();
                 newUser.setEmail(debitUserEmail);
@@ -27,20 +28,13 @@ public class TransactionService {
                 newUser.setActive(false);
 
                 UserDao.save(newUser);
-
-                transaction.setCredit(creditUser);
                 transaction.setDebit(newUser);
-                transaction.setSum(sum);
-                TransactionDao.create(transaction);
-
-                InviteService.sendEmail(creditUser.getFirstName(), debitUserEmail, sum);
-            } else {
-                transaction.setDebit(debitUser);
-                transaction.setCredit(creditUser);
-                transaction.setSum(sum);
-
-                TransactionDao.create(transaction);
             }
+            transaction.setDebit(debitUser);
+            transaction.setCredit(creditUser);
+            transaction.setSum(sum);
+
+            TransactionDao.create(transaction);
         }
     }
 
