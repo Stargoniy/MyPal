@@ -15,14 +15,18 @@ public class AdminService {
 
     public  void banUser(int id) {
         User user = UserDao.getById(id);
-        user.setActive(false);
-        UserDao.update(user);
+        if (user.getId() > 0) {
+            user.setActive(false);
+            UserDao.update(user);
+        }
     }
 
     public void unBanUser(int id) {
         User user = UserDao.getById(id);
-        user.setActive(true);
-        UserDao.update(user);
+        if (user.getId() > 0) {
+            user.setActive(true);
+            UserDao.update(user);
+        }
     }
 
 
@@ -36,7 +40,17 @@ public class AdminService {
 
     public void cancelTransaction(int id) throws SQLException {
         Transaction transaction = TransactionDao.getById(id);
-//        transaction.setStatus("cancelled");
-//        TransactionDao.update(transaction);
+        if (transaction.getId() > 0) {
+        transaction.setStatus(false);
+        TransactionDao.update(transaction);
+        }
+    }
+
+    public void restoreTransaction(int id) throws SQLException {
+        Transaction transaction = TransactionDao.getById(id);
+        if (transaction.getId() > 0) {
+            transaction.setStatus(true);
+            TransactionDao.update(transaction);
+        }
     }
 }
