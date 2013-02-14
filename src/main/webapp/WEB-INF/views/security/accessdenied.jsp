@@ -3,9 +3,9 @@
     <head>
         <title></title>
     </head>
-    <body>
+    <body style="background-color: #f9bb10">
 
-        <div style="float: inherit"><img src="/img/You_Shall_Not_Pass.jpg"></div>
+        <div style="text-align: center"><img src="/img/You_Shall_Not_Pass.jpg"></div>
     
     </body>
 </html>
