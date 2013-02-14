@@ -41,7 +41,7 @@ public class TransactionController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(HttpServletRequest request) throws IOException {
         HttpSession session = request.getSession();
-        TransactionService.create((User) session.getAttribute("LoggedUser"), UserDao.getByEmail(request.getParameter("debit")), request.getParameter("sum"));
+        TransactionService.create((User) session.getAttribute("LoggedUser"), request.getParameter("debit"), request.getParameter("sum"));
         return "redirect:/transaction/create";
     }
 

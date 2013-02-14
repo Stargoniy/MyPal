@@ -38,9 +38,10 @@ public class LoginForm {
         this.password = password;
     }
 
-    public boolean isPasswordMatch() {
+    public boolean isUser() {
         user = UserDao.getByEmail(email);
-        boolean isMatch = (user != null && user.getPassword().equals(SecurityUtil.passwordEncoder(password))) ? true : false;
+        boolean isMatch = (null != user && user.getPassword().equals(SecurityUtil.passwordEncoder(password))
+        && !(user.isSystem())) ? true : false;
         return isMatch;
     }
 

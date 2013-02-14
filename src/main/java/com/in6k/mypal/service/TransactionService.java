@@ -8,11 +8,14 @@ import com.in6k.mypal.domain.User;
 import java.io.IOException;
 
 public class TransactionService {
-    public static void create(User creditUser, User debitUser, String inputSum) throws IOException {
+    private static final String VALID_EMAIL_REGEXP = "^[A-Za-z0-9](([_\\.\\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\\.\\-]?[a-zA-Z0-9]+)*)\\.([A-Za-z]{2,})$";
+
+    public static void create(User creditUser, String debitUserEmail, String inputSum) throws IOException {
+        User debitUser = UserDao.getByEmail(debitUserEmail);
         double sum = validateSum(creditUser, inputSum);
-        if (sum != 0) {
+        if (sum != 0 && isEmailValid(debitUserEmail)) {
             if (debitUser == null) {
-                InviteService.sendEmail(creditUser.getFirstName(), debitUser.getEmail(), sum);
+                InviteService.sendEmail(creditUser.getFirstName(), debitUserEmail, sum);
             } else {
                 Transaction transaction = new Transaction();
                 transaction.setDebit(debitUser);
@@ -36,5 +39,9 @@ public class TransactionService {
             return 0;
         }
         return sum;
+    }
+
+    private static boolean isEmailValid(String email) {
+        return email.matches(VALID_EMAIL_REGEXP);
     }
 }
