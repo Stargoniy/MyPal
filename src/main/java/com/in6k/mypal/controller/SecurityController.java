@@ -57,13 +57,19 @@ public class SecurityController {
 
         if (loginForm.isPasswordMatch()) {
             session.setAttribute("LoggedUser", loginForm.getUser());
+
+            boolean isAdmin = loginForm.getUser().getId() == 0;
+
+            if(isAdmin) {
+                session.setAttribute("Admin", loginForm.getUser());
+            }
         }
         else {
             model.addAttribute("error", "Wrong password for this user");
             model.addAttribute("email", email);
             return "security/login";
         }
-
+        System.out.println(request.getSession().getAttribute("Admin"));
         return "redirect:/transaction/create";
     }
 

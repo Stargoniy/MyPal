@@ -6,7 +6,6 @@ import com.in6k.mypal.domain.Transaction;
 import com.in6k.mypal.domain.User;
 import com.in6k.mypal.service.CreditCard.IncreaseBalanсeService;
 import com.in6k.mypal.service.CreditCard.ValidCreditCardService;
-import com.in6k.mypal.service.Inviter;
 import com.in6k.mypal.service.SessionValidService;
 import com.in6k.mypal.service.TransactionService;
 import com.in6k.mypal.service.TransactionValidator;
