@@ -2,14 +2,11 @@ package com.in6k.mypal.controller;
 
 import com.in6k.mypal.dao.TransactionDao;
 import com.in6k.mypal.dao.UserDao;
-import com.in6k.mypal.domain.Transaction;
 import com.in6k.mypal.domain.User;
 import com.in6k.mypal.service.CreditCard.IncreaseBalanсeService;
 import com.in6k.mypal.service.CreditCard.ValidCreditCardService;
-import com.in6k.mypal.service.Inviter;
 import com.in6k.mypal.service.SessionValidService;
 import com.in6k.mypal.service.TransactionService;
-import com.in6k.mypal.service.TransactionValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,7 +41,7 @@ public class TransactionController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(HttpServletRequest request) throws IOException {
         HttpSession session = request.getSession();
-        TransactionService.create((User) session.getAttribute("LoggedUser"), UserDao.getByEmail(request.getParameter("debit")), request.getParameter("sum"));
+        TransactionService.create((User) session.getAttribute("LoggedUser"), request.getParameter("debit"), request.getParameter("sum"));
         return "redirect:/transaction/create";
     }
 
