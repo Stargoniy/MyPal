@@ -72,14 +72,7 @@ public class TransactionServiceTest {
 
         IncreaseBalanсeService.moneyFromCreditCard("5105105105105100", "100", creditUser.getId(), true);
 
-        User debitUser = new User();
         String debitUserEmail = "debit@example.com";
-        debitUser.setEmail(debitUserEmail);
-        debitUser.setFirstName("DebitName");
-        debitUser.setLastName("DebitLastName");
-        debitUser.setPassword(SecurityUtil.passwordEncoder("secret"));
-        debitUser.setActive(true);
-        UserDao.save(debitUser);
 
         try {
             TransactionService.create(creditUser, debitUserEmail, "10");
@@ -87,6 +80,7 @@ public class TransactionServiceTest {
             fail();
         }
 
+        User debitUser = UserDao.getByEmail(debitUserEmail);
         Transaction transaction = TransactionDao.findAllForUser(debitUser).get(0);
         assertNotNull(transaction);
         assertEquals(10.0, transaction.getSum());

@@ -29,8 +29,9 @@ public class TransactionService {
 
                 UserDao.save(newUser);
                 transaction.setDebit(newUser);
+            } else {
+                transaction.setDebit(debitUser);
             }
-            transaction.setDebit(debitUser);
             transaction.setCredit(creditUser);
             transaction.setSum(sum);
 
