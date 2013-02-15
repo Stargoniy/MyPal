@@ -2,16 +2,15 @@ package com.in6k.mypal.service.facebook;
 
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 
-public class UserService {
+public class FacebookService {
 
-    public JSONObject getFacebookUserData(String accessToken) {
+    public static JSONObject getFacebookUserData(String accessToken) {
         try {
 
-            JSONObject jsonObject = new JSONObject(readUrl("https://graph.facebook.com/me?access_token=" + accessToken));
+            JSONObject jsonObject = new JSONObject(readUrlFromString("https://graph.facebook.com/me?access_token=" + accessToken));
             return jsonObject;
 
         } catch (Throwable ex) {
@@ -19,7 +18,7 @@ public class UserService {
         }
     }
 
-    private static String readUrl(String urlString) throws Exception {
+    private static String readUrlFromString(String urlString) throws Exception {
         BufferedReader reader = null;
         try {
             URL url = new URL(urlString);
@@ -35,5 +34,15 @@ public class UserService {
             if (reader != null)
                 reader.close();
         }
+    }
+
+    public static String readUrl(URL url) throws IOException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        InputStream is = url.openStream();
+        int r;
+        while ((r = is.read()) != -1) {
+            byteArrayOutputStream.write(r);
+        }
+        return new String(byteArrayOutputStream.toByteArray());
     }
 }

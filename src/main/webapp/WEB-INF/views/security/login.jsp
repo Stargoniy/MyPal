@@ -48,6 +48,8 @@
 
         <input class="btn btn-large btn-primary" type="submit" value="Log in" />
 
+        <a href="/facebook/registration"><img id="fb_login" src="/img/facebook/facebook-icon-small.jpg" width="50" height="25"/></a>
+
         <span style="padding:0px 10px;"><a href="/registration">Registration</a></span>
     </form>
 </div>
