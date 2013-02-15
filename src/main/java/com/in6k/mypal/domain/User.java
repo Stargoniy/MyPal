@@ -12,6 +12,7 @@ public class User {
     private String password;
     private boolean active;
     private boolean system;
+    private String facebook_id;
 
     @Id
     @GeneratedValue
@@ -71,6 +72,15 @@ public class User {
     @Column(name = "system")
     public boolean isSystem() {
         return system;
+    }
+
+    @Column(name = "facebook_id")
+    public String getFacebook_id() {
+        return facebook_id;
+    }
+
+    public void setFacebook_id(String facebook_id) {
+        this.facebook_id = facebook_id;
     }
 
     public void setSystem(boolean system) {
