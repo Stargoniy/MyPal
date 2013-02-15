@@ -10,7 +10,7 @@ import java.io.IOException;
 public class TransactionService {
     private static final String VALID_EMAIL_REGEXP = "^[A-Za-z0-9](([_\\.\\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\\.\\-]?[a-zA-Z0-9]+)*)\\.([A-Za-z]{2,})$";
 
-    public static void create(User creditUser, String debitUserEmail, String inputSum) throws IOException {
+    public static boolean create(User creditUser, String debitUserEmail, String inputSum) throws IOException {
         User debitUser = UserDao.getByEmail(debitUserEmail);
         double sum = validateSum(creditUser, inputSum);
 
@@ -36,7 +36,9 @@ public class TransactionService {
             transaction.setSum(sum);
 
             TransactionDao.create(transaction);
+            return true;
         }
+        return false;
     }
 
     private static double validateSum(User user, String inputSum) {
