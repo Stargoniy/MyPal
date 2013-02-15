@@ -33,7 +33,7 @@ public class AdminController {
     public String showAdminPage(HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        isAdminLogged = session.getAttribute("Admin") != null;
+        isAdminLogged = (session.getAttribute("Admin") != null) ? true : false;
 
         if (isAdminLogged) {
             return "/admin/admin";

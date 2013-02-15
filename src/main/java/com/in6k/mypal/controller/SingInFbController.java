@@ -1,5 +1,7 @@
 package com.in6k.mypal.controller;
 
+import com.in6k.mypal.dao.UserDao;
+import com.in6k.mypal.domain.User;
 import com.in6k.mypal.service.facebook.Facebook;
 import com.in6k.mypal.service.facebook.FacebookService;
 import org.json.JSONException;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URL;
 
@@ -42,11 +45,30 @@ public class SingInFbController {
 
             JSONObject jsonObject = FacebookService.getFacebookUserData(accessToken);
 
-            System.out.println(jsonObject.getString("id"));
-            System.out.println(jsonObject.getString("first_name"));
-            System.out.println(jsonObject.getString("last_name"));
-            System.out.println(jsonObject.getString("email"));
 
+            User user = new User();
+            boolean isUserExist = UserDao.getByEmail(jsonObject.getString("email")) != null;
+
+            user.setFirstName(jsonObject.getString("first_name"));
+            user.setLastName(jsonObject.getString("last_name"));
+            user.setEmail(jsonObject.getString("email"));
+            user.setFacebook_id(jsonObject.getString("id"));
+            user.setActive(true);
+
+            HttpSession session = request.getSession();
+
+            if(!isUserExist) {
+                UserDao.save(user);
+
+                session.setAttribute("LoggedUser", UserDao.getByEmail(jsonObject.getString("email")));
+
+                response.sendRedirect("http://localhost:8080/transaction/create");
+            }
+            else {
+                session.setAttribute("LoggedUser", UserDao.getByEmail(jsonObject.getString("email")));
+
+                response.sendRedirect("http://localhost:8080/transaction/create");
+            }
         }
     }
 }

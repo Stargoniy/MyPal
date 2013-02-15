@@ -41,10 +41,20 @@ public class TransactionController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(HttpServletRequest request) throws IOException {
+    public String create(HttpServletRequest request, ModelMap model) throws IOException {
         HttpSession session = request.getSession();
-        TransactionService.create((User) session.getAttribute(LOGGED_USER), request.getParameter("debit"), request.getParameter("sum"));
-        return "redirect:/transaction/create";
+        boolean transactionComplete = TransactionService.create((User) session.getAttribute(LOGGED_USER), request.getParameter("debit"), request.getParameter("sum"));
+        request.setAttribute("transactionComplete", transactionComplete);
+        if (transactionComplete) {
+            request.setAttribute("transactionComplete", transactionComplete);
+            return "redirect:/transaction/history";
+        }
+        else {
+            User userSession = (User) session.getAttribute(LOGGED_USER);
+            model.addAttribute("sess", userSession);
+            model.addAttribute("balance", UserDao.getBalance(userSession));
+            return "transaction/create";
+        }
     }
 
     @RequestMapping(value = "/history")
