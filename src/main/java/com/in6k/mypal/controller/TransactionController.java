@@ -22,12 +22,13 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/transaction")
 public class TransactionController {
+    private final String LOGGED_USER = "LoggedUser";
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String creationForm(ModelMap model, HttpServletRequest request) {
         HttpSession session = request.getSession();
+        User userSession = (User) session.getAttribute(LOGGED_USER);
 
-        User userSession = (User) session.getAttribute("LoggedUser");
         if (null == userSession || userSession.getActive() == false) {
             return "security/accessdenied";
         }
@@ -41,15 +42,15 @@ public class TransactionController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(HttpServletRequest request) throws IOException {
         HttpSession session = request.getSession();
-        TransactionService.create((User) session.getAttribute("LoggedUser"), request.getParameter("debit"), request.getParameter("sum"));
+        TransactionService.create((User) session.getAttribute(LOGGED_USER), request.getParameter("debit"), request.getParameter("sum"));
         return "redirect:/transaction/create";
     }
 
     @RequestMapping(value = "/history")
     public String history(ModelMap model, HttpServletRequest request) throws IOException, SQLException {
         HttpSession session = request.getSession();
+        User userSession = (User) session.getAttribute(LOGGED_USER);
 
-        User userSession = (User) session.getAttribute("LoggedUser");
         if (userSession == null || userSession.getActive() == false) {
             return "security/accessdenied";
         }
@@ -132,7 +133,7 @@ public class TransactionController {
     }
 
     private void userInfoForView(ModelMap model, HttpSession session) {
-        User userSession = (User) session.getAttribute("LoggedUser");
+        User userSession = (User) session.getAttribute(LOGGED_USER);
         model.addAttribute("sess", userSession);
         model.addAttribute("balance", UserDao.getBalance(userSession));
     }
