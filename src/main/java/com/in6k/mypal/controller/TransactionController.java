@@ -5,8 +5,9 @@ import com.in6k.mypal.dao.UserDao;
 import com.in6k.mypal.domain.User;
 import com.in6k.mypal.service.CreditCard.IncreaseBalanсeService;
 import com.in6k.mypal.service.CreditCard.ValidCreditCardService;
-import com.in6k.mypal.service.SessionValidService;
+import com.in6k.mypal.service.ValidUser.SessionValidService;
 import com.in6k.mypal.service.TransactionService;
+import com.in6k.mypal.service.ValidUser.ValidUserAndRedirecttoLogin;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -89,12 +90,11 @@ public class TransactionController {
 
     @RequestMapping(value = "/create/creditfromcard", method = RequestMethod.GET)
     public String creationFormDebetFromCard(HttpServletRequest request, ModelMap model){
-        HttpSession session = request.getSession();
 
-        if (SessionValidService.ValidUser(session) == null || SessionValidService.ValidUser(session).getActive() == false) {
-            userInfoForView(model, session);
-            return "security/accessdenied";
-        }
+        ValidUserAndRedirecttoLogin validUserAndRedirecttoLogin = new ValidUserAndRedirecttoLogin(request, model).invoke();
+
+        if (validUserAndRedirecttoLogin.is()) return "security/accessdenied";
+        HttpSession session = validUserAndRedirecttoLogin.getSession();
 
         userInfoForView(model, session);
         return "creditcard/create";
@@ -102,12 +102,11 @@ public class TransactionController {
 
     @RequestMapping(value = "/create/debitedtothecard", method = RequestMethod.GET)
     public String creationDebitedToTheCard(HttpServletRequest request, ModelMap model){
-        HttpSession session = request.getSession();
 
-        if (SessionValidService.ValidUser(session) == null || SessionValidService.ValidUser(session).getActive() == false) {
-            userInfoForView(model, session);
-            return "security/accessdenied";
-        }
+        ValidUserAndRedirecttoLogin validUserAndRedirecttoLogin = new ValidUserAndRedirecttoLogin(request, model).invoke();
+
+        if (validUserAndRedirecttoLogin.is()) return "security/accessdenied";
+        HttpSession session = validUserAndRedirecttoLogin.getSession();
 
         userInfoForView(model, session);
         return "creditcard/transfer";
@@ -140,4 +139,5 @@ public class TransactionController {
         model.addAttribute("sess", userSession);
         model.addAttribute("balance", UserDao.getBalance(userSession));
     }
+
 }
