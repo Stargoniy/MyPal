@@ -96,7 +96,7 @@ public class AdminServiceTest {
         assertEquals(2,transaction.getId());
         assertEquals(creditor.getId(),transaction.getCredit().getId());
         assertEquals(debitor.getId(),transaction.getDebit().getId());
-        assertEquals(false,transaction.getStatus());
+        assertEquals(true,transaction.getStatus());
         assertEquals("100.0",String.valueOf(transaction.getSum()));
     }
 
@@ -106,13 +106,13 @@ public class AdminServiceTest {
 
         assertEquals(1, transactions.get(0).getId());
         assertEquals(creditor.getId(), transactions.get(0).getDebit().getId());
-        assertEquals(false, transactions.get(0).getStatus());
+        assertEquals(true, transactions.get(0).getStatus());
         assertEquals("100.0", String.valueOf(transactions.get(0).getSum()));
 
         assertEquals(2,transactions.get(1).getId());
         assertEquals(creditor.getId(),transactions.get(1).getCredit().getId());
         assertEquals(debitor.getId(),transactions.get(1).getDebit().getId());
-        assertEquals(false,transactions.get(1).getStatus());
+        assertEquals(true,transactions.get(1).getStatus());
         assertEquals("100.0",String.valueOf(transactions.get(1).getSum()));
     }
 
