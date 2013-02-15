@@ -7,6 +7,8 @@
 <body>
 <h2>Administrator functions</h2>
 
+<a href="/logout">log-out</a>
+
 <ul class="nav nav-list">
     <li class="nav-header">Users and transactions</li>
     <li><a href="/users" >Show all users</a></li>

@@ -79,6 +79,7 @@ public class SecurityController {
     public String logOut(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute("LoggedUser", null);
+        session.setAttribute("Admin", null);
 
         return "redirect:/login";
     }

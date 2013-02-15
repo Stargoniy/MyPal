@@ -5,12 +5,28 @@ import java.util.List;
 
 public class ValidCreditCardService {
     private final static String VALID_SUM = "[-+]?(?:\\b[0-9]+(?:\\.[0-9]*)?|\\.[0-9]+\\b)(?:[eE][-+]?[0-9]+\\b)?";
+    private final static String VALID_NAME = "[A-Z]([a-z]+|\\s[a-z]+)";
+    private final static String VALID_CVV = "/^[0-9]{3,4}$/";
+    private final static String VALID_MONTH = "/(0[1-9]|1[012])/";
+    private final static String VALID_CREDIT_CARD_NUMBER = "^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$";
 
     private boolean isSumValid(String sum) {
         return sum.matches(VALID_SUM);
     }
 
-    public List validateCardInfo(String cardNumber, String sumOnCard){
+    private boolean isNameValid(String name) {
+        return name.matches(VALID_NAME);
+    }
+
+    private boolean isCvvValid(String cvv) {
+        return cvv.matches(VALID_CVV);
+    }
+
+    private boolean isMonthValid(String month) {
+        return month.matches(VALID_MONTH);
+    }
+
+    public List validateCardInfo(String cardNumber, String sumOnCard, String cardName, String cvv, String cardMonth){
         List result = new ArrayList();
 
         if(!validateTypeCard (cardNumber)) {
@@ -21,25 +37,23 @@ public class ValidCreditCardService {
             result.add("sum");
         }
 
+        if(!isNameValid (cardName)) {
+            result.add("cardName");
+        }
+
+        /*if(!isCvvValid (cvv)) {
+            result.add("cvv");
+        }
+
+        if(!isMonthValid (cardMonth)) {
+            result.add("cardMonth");
+        }
+*/
         return result;
     }
 
-    private String getDigitsOnly (String s) {
-        StringBuffer digitsOnly = new StringBuffer ();
-        char c;
-
-        for (int i = 0; i < s.length (); i++) {
-            c = s.charAt (i);
-            if (Character.isDigit (c)) {
-                digitsOnly.append (c);
-            }
-        }
-
-        return digitsOnly.toString ();
-    }
-
     public boolean isValidCardNumber (String cardNumber) {
-        String digitsOnly = getDigitsOnly( cardNumber );
+        String digitsOnly = cardNumber;
         int sum = 0;
         int digit = 0;
         int addend = 0;
@@ -64,50 +78,12 @@ public class ValidCreditCardService {
     }
 
     private boolean validateTypeCard(String number) {
+        boolean result = false;
 
-        String typeCardNumber = number;
-        typeCardNumber = typeCardNumber.substring(1,2);
-
-        if (typeCardNumber.equals("5")) {
-            if (number.length() != 16 ||
-                    Integer.parseInt(number.substring(0, 2)) < 51 ||
-                    Integer.parseInt(number.substring(0, 2)) > 55) {
-                return false;
-            }
-
-        } else if (typeCardNumber.equals("4")) {
-            if ((number.length() != 13 && number.length() != 16) ||
-                    Integer.parseInt(number.substring(0, 1)) != 4) {
-                return false;
-            }
-
-        }/* else if (s.equals("amex")) {
-            if (number.length() != 15 ||
-                    (Integer.parseInt(number.substring(0, 2)) != 34 &&
-                            Integer.parseInt(number.substring(0, 2)) != 37)) {
-                return false;
-            }
-
-        } else if (s.equals("discover")) {
-            if (number.length() != 16 ||
-                    Integer.parseInt(number.substring(0, 5)) != 6011) {
-                return false;
-            }
-
-        } else if (s.equals("diners")) {
-            if (number.length() != 14 ||
-                    ((Integer.parseInt(number.substring(0, 2)) != 36 &&
-                            Integer.parseInt(number.substring(0, 2)) != 38) &&
-                            Integer.parseInt(number.substring(0, 3)) < 300 ||
-                            Integer.parseInt(number.substring(0, 3)) > 305)) {
-                return false;
-            }
-
-        }*/
-        return isValidCardNumber(number);
+        if (number.matches(VALID_CREDIT_CARD_NUMBER)){
+            result = isValidCardNumber(number);
+        }
+        return result;
     }
 
-    private boolean  validateSumOnCard(){
-        return true;
-    }
 }
