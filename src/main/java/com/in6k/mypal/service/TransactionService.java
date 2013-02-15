@@ -34,6 +34,7 @@ public class TransactionService {
             }
             transaction.setCredit(creditUser);
             transaction.setSum(sum);
+            transaction.setStatus(true);
 
             TransactionDao.create(transaction);
             return true;
