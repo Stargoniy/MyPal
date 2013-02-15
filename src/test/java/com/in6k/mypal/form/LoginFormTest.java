@@ -2,6 +2,7 @@ package com.in6k.mypal.form;
 
 import com.in6k.mypal.dao.UserDao;
 import com.in6k.mypal.domain.User;
+import com.in6k.mypal.util.SecurityUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,7 +11,6 @@ import static org.junit.Assert.assertTrue;
 
 
 public class LoginFormTest {
-    public String email = "HeavyCK@ukr.net";
     public String password = "123456";
     User user;
     User creditCard;
@@ -18,13 +18,20 @@ public class LoginFormTest {
     @Before
     public void setUp() {
         User newUser = new User();
-        newUser.setEmail(email);
-        newUser.setPassword(password);
+        newUser.setEmail("HeavyCK@ukr.net");
+        newUser.setPassword(SecurityUtil.passwordEncoder(password));
 
         UserDao.save(newUser);
 
+        User systemUser = new User();
+        systemUser.setSystem(true);
+        systemUser.setEmail("email@mail.com");
+        systemUser.setPassword(SecurityUtil.passwordEncoder("123456"));
+
+        UserDao.save(systemUser);
+
         user = UserDao.getByEmail("HeavyCK@ukr.net");
-        creditCard = UserDao.getByEmail("email");
+        creditCard = UserDao.getByEmail("email@mail.com");
     }
 
     @Test
