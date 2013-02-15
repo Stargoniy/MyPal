@@ -53,6 +53,7 @@ public class SingInFbController {
             user.setLastName(jsonObject.getString("last_name"));
             user.setEmail(jsonObject.getString("email"));
             user.setFacebook_id(jsonObject.getString("id"));
+            user.setActive(true);
 
             HttpSession session = request.getSession();
 
