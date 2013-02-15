@@ -23,7 +23,7 @@ public class IncreaseBalanсeService {
                 transaction.setCredit(UserDao.getById(id));
             }
             transaction.setSum(Double.parseDouble(sum));
-
+            transaction.setStatus(true);
             try {
                 TransactionDao.create(transaction);
 
@@ -32,25 +32,5 @@ public class IncreaseBalanсeService {
             }
         }
     }
-    
-    /*private static User saveUserFromVreditCard(String cardNumber){
-
-        User result = UserDao.getByEmail(cardNumber);
-
-        if (null != result){
-           return result;
-        }
-
-        User user = new User();
-        user.setEmail(cardNumber);
-        user.setFirstName("Credit");
-        user.setLastName("Card");
-        user.setSystem(true);
-        user.setPassword(SecurityUtil.passwordEncoder(cardNumber + cardNumber.substring(2,7)));
-        UserDao.save(user);
-
-        return UserDao.getByEmail(user.getEmail());
-
-    }*/
 
 }
