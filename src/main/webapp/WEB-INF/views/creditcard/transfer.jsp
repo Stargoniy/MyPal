@@ -9,13 +9,13 @@
 </head>
 <body>
 
-    <c:if test="${validateCardInfo != null }">
+    <%--<c:if test="${validateCardInfo != null }">
         <c:forEach var="transaction" items="${validateCardInfo}">
             <tr>
                 <td>${transaction}</td>
             </tr>
         </c:forEach>
-    </c:if>
+    </c:if>--%>
 
     <legend>
         <span><c:out value="${sess.email}" /></span>
