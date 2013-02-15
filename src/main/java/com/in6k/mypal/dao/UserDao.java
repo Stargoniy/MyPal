@@ -61,7 +61,7 @@ public class UserDao {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
-        Query query = session.createSQLQuery("SELECT sum(sum), (SELECT sum(sum) FROM transactions WHERE debit_id=?) FROM transactions WHERE credit_id=?;");
+        Query query = session.createSQLQuery("SELECT sum(sum), (SELECT sum(sum) FROM transactions WHERE debit_id=? AND status=true) FROM transactions WHERE credit_id=? AND status=true;");
         query.setInteger(0, user.getId());
         query.setInteger(1, user.getId());
 
