@@ -15,6 +15,7 @@ public class RegistrationService {
         user.setLastName(registrationForm.getLastName());
         user.setEmail(registrationForm.getEmail());
         user.setPassword(SecurityUtil.passwordEncoder(registrationForm.getPassword()));
+        user.setActive(true);
     }
 
     public boolean hasErrors() {

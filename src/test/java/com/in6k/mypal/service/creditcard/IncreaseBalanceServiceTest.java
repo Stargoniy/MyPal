@@ -1,21 +1,15 @@
-package com.in6k.mypal.service;
+package com.in6k.mypal.service.creditcard;
 
-import com.in6k.mypal.dao.CommonDao;
 import com.in6k.mypal.dao.TransactionDao;
 import com.in6k.mypal.dao.UserDao;
 import com.in6k.mypal.domain.Transaction;
 import com.in6k.mypal.domain.User;
 import com.in6k.mypal.service.CreditCard.IncreaseBalanсeService;
 import com.in6k.mypal.util.HibernateUtil;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.util.List;
-
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 import static org.junit.Assert.assertEquals;
 
 public class IncreaseBalanceServiceTest {

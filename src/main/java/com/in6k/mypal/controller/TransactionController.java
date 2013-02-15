@@ -40,10 +40,20 @@ public class TransactionController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(HttpServletRequest request) throws IOException {
+    public String create(HttpServletRequest request, ModelMap model) throws IOException {
         HttpSession session = request.getSession();
-        TransactionService.create((User) session.getAttribute(LOGGED_USER), request.getParameter("debit"), request.getParameter("sum"));
-        return "redirect:/transaction/create";
+        boolean transactionComplete = TransactionService.create((User) session.getAttribute(LOGGED_USER), request.getParameter("debit"), request.getParameter("sum"));
+        request.setAttribute("transactionComplete", transactionComplete);
+        if (transactionComplete) {
+            request.setAttribute("transactionComplete", transactionComplete);
+            return "redirect:/transaction/history";
+        }
+        else {
+            User userSession = (User) session.getAttribute(LOGGED_USER);
+            model.addAttribute("sess", userSession);
+            model.addAttribute("balance", UserDao.getBalance(userSession));
+            return "transaction/create";
+        }
     }
 
     @RequestMapping(value = "/history")
@@ -63,12 +73,15 @@ public class TransactionController {
 
     @RequestMapping(value = "/create/creditfromcard", method = RequestMethod.POST)
     public String createTransactionDebetFromCard(HttpServletRequest request,
-                                                 @RequestParam("card_number") String cardNumber, @RequestParam("expiry_date") String expiryDate,
-                                                 @RequestParam("name_on_card") String nameOnCard, @RequestParam("sum") String sum,
+                                                 @RequestParam("card_number") String cardNumber,
+                                                 @RequestParam("expiry_date_month") String expiryDateMonth,
+                                                 @RequestParam("name_on_card") String nameOnCard,
+                                                 @RequestParam("sum") String sum,
                                                  @RequestParam("cvv") String cvv, ModelMap model) throws IOException {
+
         HttpSession session = request.getSession();
         ValidCreditCardService isValidCard = new ValidCreditCardService();
-        List validateCardInfo = isValidCard.validateCardInfo(cardNumber, sum);
+        List validateCardInfo = isValidCard.validateCardInfo(cardNumber, sum, nameOnCard, cvv, expiryDateMonth);
 
         if ((validateCardInfo.size()>0)){
             model.addAttribute("validateCardInfo", validateCardInfo);
@@ -116,9 +129,9 @@ public class TransactionController {
                                                     @RequestParam("sum") String sum, ModelMap model){
         HttpSession session = request.getSession();
         ValidCreditCardService isValidCard = new ValidCreditCardService();
-        List validateCardInfo = isValidCard.validateCardInfo(cardNumber, sum);
+        List validateCardInfo = isValidCard.validateCardInfo(cardNumber, sum, "cardName", "cvv", "cardMonth");
 
-        if ((validateCardInfo.size()>0)){
+        if ((validateCardInfo.contains("cardNumber")) || (validateCardInfo.contains("sum"))){
             model.addAttribute("validateCardInfo", validateCardInfo);
             userInfoForView(model, session);
             return "creditcard/transfer";

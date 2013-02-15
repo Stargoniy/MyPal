@@ -6,7 +6,14 @@
 </head>
 <body>
 <h2>Administrator functions</h2>
-<a href="/users" ><button>Show all users</button></a>
-<a href="/admin/transaction/list" ><button>Show all transactions</button></a>
+
+<a href="/logout">log-out</a>
+
+<ul class="nav nav-list">
+    <li class="nav-header">Users and transactions</li>
+    <li><a href="/users" >Show all users</a></li>
+    <li><a href="/admin/transaction/list" >Show all transactions</a></li>
+</ul>
+
 </body>
 </html>
