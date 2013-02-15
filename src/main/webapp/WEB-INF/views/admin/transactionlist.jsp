@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
 </head>
 <body>
-
+<a href="/admin/page">Back to admin pannel</a>
 <table class="table table-striped">
 
     <tr>
