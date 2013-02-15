@@ -57,22 +57,7 @@ public class TransactionController {
         model.addAttribute("balance", UserDao.getBalance(userSession));
         model.addAttribute("transactions", TransactionDao.findAllForUser(userSession));
 
-        return "transaction/list";
-    }
-
-    @RequestMapping(value = "/list")
-    public String list(ModelMap model, HttpServletRequest request) throws IOException, SQLException {
-        HttpSession session = request.getSession();
-
-        User userSession = (User) session.getAttribute("LoggedUser");
-        if (userSession == null || userSession.getActive() == false) {
-            return "security/accessdenied";
-        }
-        model.addAttribute("sess", userSession);
-        //model.addAttribute("transactions", TransactionDao.list());
-        model.addAttribute("transactions", TransactionDao.list());
-
-        return "transaction/list";
+        return "transaction/history";
     }
 
     @RequestMapping(value = "/create/creditfromcard", method = RequestMethod.POST)
