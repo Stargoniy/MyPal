@@ -24,7 +24,7 @@
             <input name="debit" type="text" class="input-large" placeholder="Email"><br>
              Sum: <br>
             <input name="sum" type="text" class="input-large" placeholder="Sum"><br>
-             <button type="submit" class="btn btn-primary">Create</button>
+             <button type="submit" class="btn">Create</button>
 
         </form>
     </body>

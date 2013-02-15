@@ -41,7 +41,7 @@ public class SecurityController {
 
         registrationService.register();
 
-        return "redirect:/";
+        return "redirect:/login";
     }
 
      @RequestMapping(value = "/login", method = RequestMethod.GET)
