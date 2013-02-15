@@ -16,7 +16,7 @@ public class UserDaoTest {
     public void shouldGetUserByIdIfUserExist() {
         User testedUser = new User();
         User user = new User();
-        testedUser = setUserInfo(user, 1, "Vasya", "Germanov", "admin@gmail.com", "81dc9bdb52d04dc2036dbd8313ed055", true, true);
+        testedUser = setUserInfo(user, 1, "Vasya", "Germanov", "admin@gmail.com", "81dc9bdb52d04dc2036dbd8313ed055", true, false);
         user = UserDao.getById(1);
         testUsers(testedUser, user);
     }
@@ -26,15 +26,15 @@ public class UserDaoTest {
         assertNull(UserDao.getById(-5));
     }
 
-/*    @Test
+    @Test
     public void shouldSaveUser() {
         User testedUser = new User();
         User user = new User();
-        testedUser = setUserInfo(user, 5, "Ivan", "Pavlov", "ivan@gmail.com", "81dc9bdb52d04dc2036dbd8313ed055", true, true);
+        testedUser = setUserInfo(user, 5, "Ivan", "Pavlov", "ivan@gmail.com", "81dc9bdb52d04dc2036dbd8313ed055", true, false);
         UserDao.save(testedUser);
-        user =  UserDao.getById(5);
+        user =  UserDao.getById(24);
         testUsers(testedUser, user);
-    } */
+    }
 
     @Test
     public void shouldGetBalance() {
