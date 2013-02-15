@@ -9,15 +9,15 @@
     <link href="css/bootstrap.css" rel="stylesheet" media="screen">
 </head>
 <body>
-
-<table class="table table-bordered">
+<a href="/admin/page">Back to admin pannel</a>
+<table class="table table-striped">
     <tr>
-        <th><h4>ID</h4></th>
-        <th><h4>User first name</h4></th>
-        <th><h4>User last name</h4></th>
-        <th><h4>Email</h4></th>
-        <th><h4>Is Active</h4></th>
-        <th><h4>ACTIONS</h4></th>
+        <th>ID</th>
+        <th>User first name</th>
+        <th>User last name</th>
+        <th>Email</th>
+        <th>Is Active</th>
+        <th>ACTIONS</th>
     </tr>
     <c:forEach var="user" items="${userlist}">
         <c:if test="${user.id > 0}">
@@ -27,14 +27,15 @@
             <td><c:out value="${user.lastName}"/></td>
             <td><c:out value="${user.email}"/></td>
             <td><c:out value="${user.active}"/></td>
+            <td style="width: 200px">
             <c:if test="${user.active == true}">
-                <td><a href="/user/ban/<c:out value="${user.id}"/>"><button class="btn-warning">Ban</button></a></td>
+                <a href="/user/ban/<c:out value="${user.id}"/>" class="btn-warning">Ban</a>
             </c:if>
             <c:if test="${user.active == false}">
-                <td><a href="/user/unban/<c:out value="${user.id}"/>"><button class="btn-inverse">UnBan</button></a></td>
+                <a href="/user/unban/<c:out value="${user.id}"/>" class="btn-inverse">UnBan</a>
             </c:if>
-                <td><a href="users/<c:out value="${user.id}"/>/transactions"><button class="btn">Transactions</button></a></td>
-
+                <a href="users/<c:out value="${user.id}"/>/transactions" class="btn">Transactions</a>
+             </td>
         </tr>
         </c:if>
     </c:forEach>
