@@ -1,4 +1,4 @@
-package com.in6k.mypal.service;
+package com.in6k.mypal.service.ValidUser;
 
 import com.in6k.mypal.domain.User;
 
