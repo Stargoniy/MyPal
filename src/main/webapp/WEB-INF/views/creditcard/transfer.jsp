@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -12,7 +13,6 @@
         <c:forEach var="transaction" items="${validateCardInfo}">
             <tr>
                 <td>${transaction}</td>
-
             </tr>
         </c:forEach>
     </c:if>
@@ -32,13 +32,21 @@
 
     <form class="form-horizontal" method="post" action="/transaction/create/debitedtothecard">
         <div class="control-group">
-            <label class="control-label" for="card_number">Card number</label>
+            <label class="control-label" for="card_number">
+                <p <c:if test = "${fn:contains(validateCardInfo,'cardNumber')}"> class="text-error"</c:if>>
+                    Card number
+                </p>
+            </label>
             <div class="controls">
                 <input type="text" id="card_number" name = "card_number" placeholder="Card number">
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="sumid">Sum</label>
+            <label class="control-label" for="sumid">
+                <p <c:if test = "${fn:contains(validateCardInfo,'sum')}"> class="text-error"</c:if>>
+                    Sum
+                </p>
+            </label>
             <div class="controls">
                 <input type="text" id="sumid" name="sum" placeholder="Sum">
             </div>
